@@ -4,7 +4,7 @@ import {CartContext} from  "/CartContext";
 const Header = (props) => {
     const {cart} = useContext(CartContext);
     return (<header>
-        <h1></h1>
+        <h1>Test</h1>
         <button onClick={Cartonclick}> View Cart</button>
         <span classList="badge">{cart.length}</span>
     </header>)
