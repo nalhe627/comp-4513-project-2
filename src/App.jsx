@@ -3,7 +3,7 @@ import { CartContextProvider } from "./components/CartContext";
 import Header from "./components/Header";
 // import { Browser } from './components/Browser';
 import CartDisplay from "./components/CartDisplay";
-import "./App.css";
+// import "./App.css";
 
 const App = (props) => {
   const [products, setProducts] = useState([]);
