@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import { CartContextProvider } from "./components/CartContext";
 import Header from "./components/Header";
 // import { Browser } from './components/Browser';
@@ -25,6 +26,9 @@ const App = (props) => {
       <Header />
       {/* <Browser/> */}
       <CartDisplay />
+      {/* <Routes>
+        <Route path="" element={} />
+      </Routes> */}
     </CartContextProvider>
   );
 };
