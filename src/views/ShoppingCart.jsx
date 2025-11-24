@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { CartContext } from "./CartContext";
+import { CartContext } from "../components/CartContext";
 
-const CartDisplay = (props) => {
+const ShoppingCart = (props) => {
     const { cart } = useContext(CartContext);
     
     const removeItem = () => {
@@ -25,4 +25,4 @@ const CartDisplay = (props) => {
     );
 };
 
-export default CartDisplay;
+export default ShoppingCart;

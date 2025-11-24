@@ -4,7 +4,7 @@ import { CartContextProvider } from "./components/CartContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 // import { Browser } from './components/Browser';
-import CartDisplay from "./components/CartDisplay";
+import ShoppingCart from "./views/ShoppingCart";
 // import "./App.css";
 
 const App = (props) => {
@@ -26,7 +26,7 @@ const App = (props) => {
     <CartContextProvider>
       <Header />
       {/* <Browser/> */}
-      <CartDisplay />
+      <ShoppingCart />
       {/* <Routes>
         <Route path="" element={} />
       </Routes> */}
