@@ -1,5 +1,8 @@
 import { useState, createContext, useEffect } from 'react'
 import {CartContextProvider} from './components/CartContext.jsx';
+import Header from './components/Header.jsx';
+// import {Browser} from './components/Browser.jsx';
+import CartDisplay from './components/CartDisplay.jsx';
 import './App.css'
 
 const App = (props) => {
@@ -14,7 +17,7 @@ const App = (props) => {
   return (
     <CartContextProvider>
       <Header/>
-      <Browser/>
+      {/* <Browser/> */}
       <CartDisplay/>
     </CartContextProvider>
   )

@@ -1,11 +1,11 @@
 import {useContext} from "react";
-import {CartContext} from  "/CartContext";
+import {CartContext} from  "./CartContext.jsx";
 
 const Header = (props) => {
     const {cart} = useContext(CartContext);
     return (<header>
         <h1>Test</h1>
-        <button onClick={Cartonclick}> View Cart</button>
+        <button > View Cart</button>
         <span classList="badge">{cart.length}</span>
     </header>)
 }

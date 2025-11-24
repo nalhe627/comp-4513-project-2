@@ -18,3 +18,4 @@ const CartDisplay = (props) => {
         <button onClick={clearCart}> Remove </button>
     </div>)
 }
+export default CartDisplay;
