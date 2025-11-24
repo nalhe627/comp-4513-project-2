@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { CartContextProvider } from "./components/CartContext";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 // import { Browser } from './components/Browser';
 import CartDisplay from "./components/CartDisplay";
 // import "./App.css";
@@ -29,6 +30,7 @@ const App = (props) => {
       {/* <Routes>
         <Route path="" element={} />
       </Routes> */}
+      <Footer />
     </CartContextProvider>
   );
 };
