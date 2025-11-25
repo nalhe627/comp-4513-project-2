@@ -1,14 +1,18 @@
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { Link } from "@heroui/link";
-// import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "./CartContext";
 
 const Navigation = (props) => {
+    const { cart } = useContext(CartContext);
     
     return (
-        <Navbar isBordered>
-            <NavbarBrand>Shop</NavbarBrand>
-            <NavbarContent className="flex gap-4">
-                <NavbarItem className="" isActive>
+        <Navbar isBordered maxWidth="full">
+            <NavbarContent justify="start">
+                <NavbarBrand className="">Shop</NavbarBrand>
+            </NavbarContent>
+            <NavbarContent justify="center">
+                <NavbarItem isActive>
                     <Link color="foreground" isBlock href="/">Home</Link>
                 </NavbarItem>
                 <NavbarItem>
@@ -23,6 +27,9 @@ const Navigation = (props) => {
                 <NavbarItem>
                     <Link isBlock href="/about">About</Link>
                 </NavbarItem>
+            </NavbarContent>
+            <NavbarContent justify="end">
+                <button>Cart {cart.length}</button>
             </NavbarContent>
         </Navbar>
     );

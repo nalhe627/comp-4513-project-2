@@ -6,10 +6,8 @@ const Header = (props) => {
     const { cart } = useContext(CartContext);
 
     return (
-        <header className="flex">
+        <header>
             <Navigation />
-            <button>Cart {cart.length}</button>
-            {/* <span classList="badge">{cart.length}</span> */}
         </header>
     );
 };
