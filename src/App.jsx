@@ -27,9 +27,11 @@ const App = (props) => {
   return (
     <HeroUIProvider navigate={navigate} useHref={useHref}>
       <CartContextProvider>
-        <Header />
-        <ShoppingCart />
-        <Footer />
+        <main className="flex flex-col justify-between min-h-screen">
+          <Header />
+          {/* <ShoppingCart /> */}
+          <Footer />
+        </main>
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
