@@ -1,13 +1,16 @@
 import { createContext, useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate, useHref } from "react-router-dom";
+import { HeroUIProvider } from "@heroui/system";
 import { CartContextProvider } from "./components/CartContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 // import { Browser } from './components/Browser';
 import ShoppingCart from "./views/ShoppingCart";
+import Home from "./views/Home";
 // import "./App.css";
 
 const App = (props) => {
+  const navigate = useNavigate()
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -23,15 +26,17 @@ const App = (props) => {
   }, []);
 
   return (
-    <CartContextProvider>
-      <Header />
-      {/* <Browser/> */}
-      <ShoppingCart />
-      {/* <Routes>
-        <Route path="" element={} />
-      </Routes> */}
-      <Footer />
-    </CartContextProvider>
+    <HeroUIProvider navigate={navigate} useHref={useHref}>
+      <CartContextProvider>
+        <Header />
+        {/* <Browser/> */}
+        <ShoppingCart />
+        <Footer />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </CartContextProvider>
+    </HeroUIProvider>
   );
 };
 
