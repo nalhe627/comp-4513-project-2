@@ -1,5 +1,7 @@
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { Link } from "@heroui/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
 
@@ -29,7 +31,10 @@ const Navigation = (props) => {
                 </NavbarItem>
             </NavbarContent>
             <NavbarContent justify="end">
-                <button>Cart {cart.length}</button>
+                <button>
+                    <FontAwesomeIcon icon={faCartShopping} size="lg" />
+                    {cart.length}
+                </button>
             </NavbarContent>
         </Navbar>
     );
