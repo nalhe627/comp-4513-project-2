@@ -6,11 +6,15 @@ import Footer from "./components/Footer";
 // import { Browser } from './components/Browser';
 import ShoppingCart from "./views/ShoppingCart";
 // import "./App.css";
+import ProductFilters from "./components/ProductFilters";
 
 
 
 const App = (props) => {
   const [products, setProducts] = useState([]);
+  const [filter, setFilter] = useState();
+  const specifyFilter = (f) => { setFilter(f) };
+
 
   useEffect(() => {
     fetch(
@@ -27,13 +31,16 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <CartContextProvider products={products} >
-        <Route path="/home">{<Home />}</Route>
-        <Route path="/women">{<Women />}</Route>
-        <Route path="/men">{<Men />}</Route>
-        <Route path="/browse">{<Browse />}</Route>
-        <Route path="/about">{<About />}</Route>
-        <Route path="/login">{<Login />}</Route>
-        <Route path="/cart">{<Cart />}</Route>
+        <ProductFilters setter={specifyFilter} />
+        <Routes>
+          <Route path="/home">{<Home />}</Route>
+          <Route path="/women">{<Women />}</Route>
+          <Route path="/men">{<Men />}</Route>
+          <Route path="/browse">{<Browse />}</Route>
+          <Route path="/about">{<About />}</Route>
+          <Route path="/login">{<Login />}</Route>
+          <Route path="/cart">{<Cart />}</Route>
+        </Routes>
       </CartContextProvider>
     </BrowserRouter>
   );
