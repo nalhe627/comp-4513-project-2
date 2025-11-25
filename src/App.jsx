@@ -1,16 +1,19 @@
 import { createContext, useEffect, useState } from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, useNavigate, useHref } from "react-router-dom";
+import { HeroUIProvider } from "@heroui/system";
 import { CartContextProvider } from "./components/CartContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 // import { Browser } from './components/Browser';
 import ShoppingCart from "./views/ShoppingCart";
+import Home from "./views/Home";
 // import "./App.css";
 import ProductFilters from "./components/ProductFilters";
 
 
 
 const App = (props) => {
+  const navigate = useNavigate()
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState();
   const specifyFilter = (f) => { setFilter(f) };
@@ -29,20 +32,17 @@ const App = (props) => {
   }, []);
 
   return (
-    <BrowserRouter>
-      <CartContextProvider products={products} >
-        <ProductFilters setter={specifyFilter} />
+    <HeroUIProvider navigate={navigate} useHref={useHref}>
+      <CartContextProvider>
+        <Header />
+        {/* <Browser/> */}
+        <ShoppingCart />
+        <Footer />
         <Routes>
-          <Route path="/home">{<Home />}</Route>
-          <Route path="/women">{<Women />}</Route>
-          <Route path="/men">{<Men />}</Route>
-          <Route path="/browse">{<Browse />}</Route>
-          <Route path="/about">{<About />}</Route>
-          <Route path="/login">{<Login />}</Route>
-          <Route path="/cart">{<Cart />}</Route>
+          <Route path="/" element={<Home />} />
         </Routes>
       </CartContextProvider>
-    </BrowserRouter>
+    </HeroUIProvider>
   );
 };
 
