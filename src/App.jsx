@@ -9,7 +9,8 @@ import ShoppingCart from "./views/ShoppingCart";
 import Home from "./views/Home";
 // import "./App.css";
 import ProductFilters from "./components/ProductFilters";
-
+import HeroSection from "./components/HeroSection";
+import mensHero from "./assets/mens-hero.jpg";
 
 
 const App = (props) => {
@@ -35,6 +36,7 @@ const App = (props) => {
     <HeroUIProvider navigate={navigate} useHref={useHref}>
       <CartContextProvider>
         <Header />
+        <HeroSection title="Welcome to the Shop" image={mensHero} />
         {/* <Browser/> */}
         <ShoppingCart />
         <Footer />
