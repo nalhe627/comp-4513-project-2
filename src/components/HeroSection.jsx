@@ -1,6 +1,3 @@
-// components/HeroSection.jsx
-
-
 const HeroSection = ({ title, image }) =>{
   return (
     <section className="relative w-full">
