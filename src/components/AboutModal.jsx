@@ -1,7 +1,7 @@
 const AboutModal = (params) => {
     return (
         <dialog>
-            
+            About Us
         </dialog>
     );    
 }
