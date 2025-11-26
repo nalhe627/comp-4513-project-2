@@ -4,7 +4,6 @@ import { HeroUIProvider } from "@heroui/system";
 import { CartContextProvider } from "./components/CartContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-// import { Browser } from './components/Browser';
 import ShoppingCart from "./views/ShoppingCart";
 import Home from "./views/Home";
 // import "./App.css";
@@ -35,11 +34,11 @@ const App = (props) => {
   return (
     <HeroUIProvider navigate={navigate} useHref={useHref}>
       <CartContextProvider>
-        <Header />
-        <HeroSection title="Welcome to the Shop" image={mensHero} />
-        {/* <Browser/> */}
-        <ShoppingCart />
-        <Footer />
+        <main className="flex flex-col justify-between min-h-screen">
+          <Header />
+          {/* <ShoppingCart /> */}
+          <Footer />
+        </main>
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>

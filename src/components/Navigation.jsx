@@ -1,14 +1,21 @@
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { Link } from "@heroui/link";
-// import { Link } from "react-router-dom";
+import { Button } from "@heroui/button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
+import { CartContext } from "./CartContext";
 
 const Navigation = (props) => {
+    const { cart } = useContext(CartContext);
     
     return (
-        <Navbar isBordered>
-            <NavbarBrand>Shop</NavbarBrand>
-            <NavbarContent className="flex gap-4">
-                <NavbarItem className="" isActive>
+        <Navbar isBordered maxWidth="full">
+            <NavbarContent justify="start">
+                <NavbarBrand className="">Shop</NavbarBrand>
+            </NavbarContent>
+            <NavbarContent justify="center">
+                <NavbarItem isActive>
                     <Link color="foreground" isBlock href="/">Home</Link>
                 </NavbarItem>
                 <NavbarItem>
@@ -23,6 +30,13 @@ const Navigation = (props) => {
                 <NavbarItem>
                     <Link isBlock href="/about">About</Link>
                 </NavbarItem>
+            </NavbarContent>
+            <NavbarContent justify="end">
+                {/* Using /cart for now for the shopping cart route */}
+                <Button as={Link} variant="ghost" href="/cart" isIconOnly className="px-6 border-transparent">
+                    <FontAwesomeIcon icon={faCartShopping} size="lg" />
+                    {cart.length}
+                </Button>
             </NavbarContent>
         </Navbar>
     );
