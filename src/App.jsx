@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ShoppingCart from "./views/ShoppingCart";
 import Home from "./views/Home";
+import Browse from "./views/Browse";
 // import "./App.css";
 
 const App = (props) => {
@@ -29,12 +30,13 @@ const App = (props) => {
       <CartContextProvider>
         <main className="flex flex-col justify-between min-h-screen">
           <Header />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/browse" element={<Browse />} />
+            </Routes>
           {/* <ShoppingCart /> */}
           <Footer />
         </main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
       </CartContextProvider>
     </HeroUIProvider>
   );
