@@ -10,32 +10,22 @@ import Home from "./views/Home";
 import ProductFilters from "./components/ProductFilters";
 import HeroSection from "./components/HeroSection";
 import mensHero from "./assets/mens-hero.jpg";
-
+import GetProducts from "./components/GetProducts";
+import CategoryGrid from "./components/CategoryGrid";
 
 const App = (props) => {
+  const {products} = GetProducts();
   const navigate = useNavigate()
-  const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState();
   const specifyFilter = (f) => { setFilter(f) };
-
-
-  useEffect(() => {
-    fetch(
-      "https://gist.githubusercontent.com/rconnolly/d37a491b50203d66d043c26f33dbd798/raw/37b5b68c527ddbe824eaed12073d266d5455432a/clothing-compact.json",
-    )
-      .then((res) => {
-        if (!res.ok) throw new Error("Fetch Failed");
-        else return res.json();
-      })
-      .then((data) => setProducts(data))
-      .catch((err) => console.error("Error fetching products:", err));
-  }, []);
 
   return (
     <HeroUIProvider navigate={navigate} useHref={useHref}>
       <CartContextProvider>
         <main className="flex flex-col justify-between min-h-screen">
           <Header />
+          <HeroSection title="Welcome to HeroUI Store" image={mensHero} />
+          <CategoryGrid data={products} />
           {/* <ShoppingCart /> */}
           <Footer />
         </main>
