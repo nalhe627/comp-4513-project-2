@@ -4,7 +4,7 @@ import { Checkbox, CheckboxGroup } from "@heroui/checkbox";
 import { Radio, RadioGroup } from "@heroui/radio";
 import { CartContext } from "../components/CartContext";
 
-// Hardcode categories and sizes for now (we could possibly keep it)
+// Hardcode categories, sizes, and materials for now (we could possibly keep it)
 const CATEGORIES = [
     "Accessories",
     "Bottoms",
@@ -29,6 +29,25 @@ const SIZES = [
     "M",
     "L",
     "XL",
+];
+
+/*
+ * Too many material types in the data file, only including the common/noteable ones
+ * Every other material not in these common types will be labeld as "other" 
+ * 
+ * Note that materials isn't shown in the exmaple for the browse view, so it might not be needed
+ */
+const MATERIALS = [
+    "Cashemere",
+    "Cotton",
+    "Denim",
+    "Leather",
+    "Nylon",
+    "Polyester",
+    "Sherpa",
+    "Silk",
+    "Wool",
+    "Other",
 ];
 
 const Browse = ({ gender, category }) => {
