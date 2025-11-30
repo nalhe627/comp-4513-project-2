@@ -50,13 +50,36 @@ const MATERIALS = [
     "Other",
 ];
 
+/*
+ * Same as materials, too many colors so only using the most common/notalbe ones
+ * Dynamically putting the hex number into the class name doesn't work; must use full name
+ */
+const COLORS = [
+    { name: "Black", hex: "bg-[#000000]" },
+    { name: "Beige", hex: "bg-[#ede8d0]" },
+    { name: "Blue", hex: "bg-[#0066ffff]" },
+    { name: "Brown", hex: "bg-[#a36537ff]" },
+    { name: "Burgundy", hex: "bg-[#660033]" },
+    { name: "Camel", hex: "bg-[#c695f9]" },
+    { name: "Charcoal", hex: "bg-[#36454f]" },
+    { name: "Gold", hex: "bg-[#ebdd1eff]" },
+    { name: "Gray", hex: "bg-[#8b8b8bff]" },
+    { name: "Green", hex: "bg-[#2dd51eff]" },
+    { name: "Ivory", hex: "bg-[#ffffe3]" },
+    { name: "Navy", hex: "bg-[#00279dff]" },
+    { name: "Red", hex: "bg-[#ff0000ff]" },
+    { name: "Tan", hex: "bg-[#d2b48c]" },
+    { name: "White", hex: "bg-[#FFFFFF]" },
+    { name: "Yellow", hex: "bg-[#fffb00ff]" },
+];
+
 const Browse = ({ gender, category }) => {
     const { cart, setCart } = useContext(CartContext);
     const [loading, setLoading] = useState(true);
     // const [currGender, setCurrGender] = useState("");
 
     // Not sure if filters should be an array or object (using object for now)
-    const [filters, setFilters] = useState({ gender, category, size: [] });
+    const [filters, setFilters] = useState({ gender, category });
 
     /**
      * Changes the gender property in the filter state.
@@ -95,6 +118,18 @@ const Browse = ({ gender, category }) => {
         setFilters({
             ...filters,
             size: selectedSizes,
+        });
+    }
+
+    /**
+     * Changes the color property in the filter state.
+     * 
+     * @param {string[]} selectedColors the colors to change in the filter state.
+     */
+    const changeColors = (selectedColors) => {
+        setFilters({
+            ...filters,
+            color: selectedColors,
         });
     }
 
@@ -155,6 +190,29 @@ const Browse = ({ gender, category }) => {
 
                     {/* Color filter */}
                     <AccordionItem key={4} title="Color">
+                        <CheckboxGroup 
+                            color="default" 
+                            value={filters.color} 
+                            onValueChange={changeColors}
+                        >
+                            {COLORS.map((color, i) => {
+                                return (
+                                    <Checkbox key={i} value={color.name}>
+                                        <div className="grid grid-cols-2 gap-6">
+                                            <p>
+                                                {color.name}
+                                            </p>
+
+                                            {/* Hardcoding the colorbox witdh for now */}
+                                            <div 
+                                                className={`${color.hex} border rounded-xs w-[24px]`}
+                                            >
+                                            </div>
+                                        </div>
+                                    </Checkbox>
+                                )
+                            })}
+                        </CheckboxGroup>
                     </AccordionItem>
                 </Accordion>
             </div>
