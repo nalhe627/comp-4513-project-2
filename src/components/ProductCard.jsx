@@ -1,31 +1,27 @@
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
 
-const ProductCard = (props) => {
+const ProductCard = ({ product }) => {
     const { cart, setCart } = useContext(CartContext);
 
     const addCart = () => {
-        let c = cart.find((c) => c.id === props.id);
-        if (!c) {
-            // TODO: code below is not finished, color is nested and need to be implemented as right now it assumes that it is not nested.
-            const newCart = [...cart, {
-                id: props.id,
-                name: props.name,
-                gender: props.gender,
-                category: props.category,
-                description: props.description,
-                price: props.price,
-                cost: props.cost,
-                color: props.color,
-            }];
-            newCart.push[props.product];
+        const existing = cart.find((c) => c.id === product.id);
+        if (!existing) {
+            const newCart = [...cart, { ...product }];
             setCart(newCart);
         }
     };
 
     return (
-        <div className="card">
-            <button onClick={addCart}>Add to Cart</button>
+        <div className="bg-white rounded-md shadow-sm p-3 flex flex-col gap-3">
+            {product.image && <img src={product.image} alt={product.name} className="w-full h-40 object-cover rounded-md" />}
+            <div className="flex flex-col">
+                <h3 className="font-medium truncate">{product.name}</h3>
+                <p className="text-sm text-gray-600">${product.price}</p>
+            </div>
+            <div className="flex gap-2 mt-auto">
+                <button onClick={addCart} className="px-3 py-1 bg-blue-600 text-white rounded">Add to Cart</button>
+            </div>
         </div>
     );
 };
