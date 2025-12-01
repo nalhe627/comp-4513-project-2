@@ -23,8 +23,9 @@ const App = () => {
   const specifyFilter = (f) => { setFilter(f) };
   const [products, setProducts] = useState([]);
 
-  const changeProduct = (index) => {
-    setSelectedProduct(index);
+  const changeProduct = (product) => {
+    // setSelectedProduct(index);
+    setSelectedProduct(product);
   }
 
   useEffect(() => {
@@ -47,7 +48,8 @@ const App = () => {
           )} */}
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/browse" element={<Browse products={products} change={changeProduct} />} />
+              <Route path="/browse" element={<Browse products={products} changeProduct={changeProduct} />} />
+              <Route path="/product" element={<SingleProduct product={selectedProduct} />} />
             </Routes>
           {/* <ShoppingCart /> */}
           <Footer />

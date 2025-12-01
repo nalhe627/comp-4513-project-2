@@ -75,10 +75,10 @@ const COLORS = [
     { name: "Yellow", hex: "bg-[#fffb00ff]" },
 ];
 
-const Browse = ({ products, gender, category, change }) => {
+const Browse = ({ products, gender, category, changeProduct }) => {
     const { cart, setCart } = useContext(CartContext);
     const [loading, setLoading] = useState(true);
-    // const [currGender, setCurrGender] = useState("");
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
     // Not sure if filters should be an array or object (using object for now)
     const [filters, setFilters] = useState({ gender, category });
@@ -224,7 +224,7 @@ const Browse = ({ products, gender, category, change }) => {
             {/* Product section */}
             <div className="border basis-4/5 p-5 rounded-lg">
                 <p className="font-bold text-xl">Products</p>
-                <ProductList products={products} change={change} />
+                <ProductList products={products} changeProduct={changeProduct} />
             </div>
         </section>
     );
