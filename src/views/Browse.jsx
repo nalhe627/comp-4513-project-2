@@ -75,13 +75,65 @@ const COLORS = [
     { name: "Yellow", hex: "bg-[#fffb00ff]" },
 ];
 
-const Browse = ({ products, gender, category, changeProduct }) => {
+const Browse = ({ products, gender, categories, changeProduct }) => {
     const { cart, setCart } = useContext(CartContext);
     const [loading, setLoading] = useState(true);
-    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState(products);
 
     // Not sure if filters should be an array or object (using object for now)
-    const [filters, setFilters] = useState({ gender, category });
+    const [filters, setFilters] = useState({ gender, categories });
+
+    /**
+     * Filters the products everytime a specific filter (e.g., gender) is changed.
+     * 
+     * @param {object} Object representing the current filters to use 
+     */
+    const refilterProducts = (currFilters) => {
+        let tempProducts = [...products];
+
+        if (currFilters.gender) {
+            tempProducts = tempProducts.filter((p) => p.gender === currFilters.gender);
+            console.log("filtered gender");
+        }
+
+        if (currFilters.categories?.length > 0) {
+            tempProducts = tempProducts.filter((p) => {
+                for (const category of currFilters.categories) {
+                    if (p.category.toLowerCase().includes(category.toLowerCase())) {
+                        return true;
+                    }
+                }
+            });
+            console.log("filtered categories");
+        }
+
+        if (currFilters.sizes?.length > 0) {
+            tempProducts = tempProducts.filter((p) => {
+                for (const size of p.sizes) {
+                    for (const selectedSize of currFilters.sizes) {
+                        if (size === selectedSize) {
+                            return true;
+                        }
+                    }
+                }
+            });
+            console.log("filtered sizes");
+        }
+
+        if (currFilters.colors?.length > 0) {
+            tempProducts = tempProducts.filter((p) => {
+                for (const color of currFilters.colors) {
+                    // Not sure if there are itesm with more than 1 color
+                    if (p.color[0].name.toLowerCase().includes(color.toLowerCase())) {
+                        return true;
+                    }
+                }
+            });
+            console.log("filtered colors");
+        }
+
+        setFilteredProducts(tempProducts);
+    };
 
     /**
      * Changes the gender property in the filter state.
@@ -92,11 +144,11 @@ const Browse = ({ products, gender, category, changeProduct }) => {
      * @param {string} selectedGender the gender to change to in the filter state.
      */
     const changeGender = (selectedGender) => {
-        // setCurrGender(selectedGender);
-        setFilters({
-            ...filters,
-            gender: selectedGender,
-        });
+        const currFilters = { ...filters, gender: selectedGender };
+
+        setFilters(currFilters);
+
+        refilterProducts(currFilters);
     };
 
     /**
@@ -105,10 +157,11 @@ const Browse = ({ products, gender, category, changeProduct }) => {
      * @param {string[]} selectedCategories the categories to change in the filter state.
      */
     const changeCategories = (selectedCategories) => {
-        setFilters({
-            ...filters,
-            category: selectedCategories,
-        });
+        const currFilters = { ...filters, categories: selectedCategories };
+       
+        setFilters(currFilters);
+
+        refilterProducts(currFilters);
     }
 
     /**
@@ -117,10 +170,11 @@ const Browse = ({ products, gender, category, changeProduct }) => {
      * @param {string[]} selectedSizes the sizes to change in the filter state.
      */
     const changeSizes = (selectedSizes) => {
-        setFilters({
-            ...filters,
-            size: selectedSizes,
-        });
+        const currFilters = { ...filters, sizes: selectedSizes };
+
+        setFilters(currFilters);
+
+        refilterProducts(currFilters);
     }
 
     /**
@@ -129,10 +183,11 @@ const Browse = ({ products, gender, category, changeProduct }) => {
      * @param {string[]} selectedColors the colors to change in the filter state.
      */
     const changeColors = (selectedColors) => {
-        setFilters({
-            ...filters,
-            color: selectedColors,
-        });
+        const currFilters = { ...filters, colors: selectedColors };
+        
+        setFilters(currFilters);
+
+        refilterProducts(currFilters);
     }
 
     return (
@@ -154,8 +209,8 @@ const Browse = ({ products, gender, category, changeProduct }) => {
                             value={filters.gender}
                             onValueChange={changeGender}
                         >
-                            <Radio value="male">Male</Radio>
-                            <Radio value="female">Female</Radio>
+                            <Radio value="mens">Male</Radio>
+                            <Radio value="womens">Female</Radio>
                         </RadioGroup>
                     </AccordionItem>
 
@@ -164,7 +219,7 @@ const Browse = ({ products, gender, category, changeProduct }) => {
                         <CheckboxGroup 
                             color="default" 
                             className="pb-3"
-                            value={filters.category} 
+                            value={filters.categories} 
                             onValueChange={changeCategories}
                         >
                             {CATEGORIES.map((categ, i) => (
@@ -180,7 +235,7 @@ const Browse = ({ products, gender, category, changeProduct }) => {
                         <CheckboxGroup 
                             color="default" 
                             className="pb-3"
-                            value={filters.size} 
+                            value={filters.sizes} 
                             onValueChange={changeSizes}
                         >
                             {SIZES.map((size, i) => (
@@ -196,7 +251,7 @@ const Browse = ({ products, gender, category, changeProduct }) => {
                     <AccordionItem key={4} title="Color">
                         <CheckboxGroup 
                             color="default" 
-                            value={filters.color} 
+                            value={filters.colors} 
                             onValueChange={changeColors}
                         >
                             {COLORS.map((color, i) => {
@@ -223,8 +278,8 @@ const Browse = ({ products, gender, category, changeProduct }) => {
 
             {/* Product section */}
             <div className="border basis-4/5 p-5 rounded-lg">
-                <p className="font-bold text-xl">Products</p>
-                <ProductList products={products} changeProduct={changeProduct} />
+                <p className="font-bold text-xl">Products ({filteredProducts.length})</p>
+                <ProductList products={filteredProducts} changeProduct={changeProduct} />
             </div>
         </section>
     );

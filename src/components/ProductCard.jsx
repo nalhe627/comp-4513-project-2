@@ -27,7 +27,7 @@ const ProductCard = ({ product, onProductClick }) => {
                 </div>
                 {/* <div className="flex gap-2 mt-auto"> */}
                     {/* <button onClick={addCart} className="px-3 py-1 bg-blue-600 text-white rounded">Add to Cart</button> */}
-                    <Button onClick={addCart} className="px-3 py-1 bg-blue-600 text-white rounded" >Add to Cart</Button>
+                    <Button onClick={addCart} className="px-3 py-1 bg-blue-600 text-white rounded">Add to Cart</Button>
                 {/* </div> */}
             </Link>
         </li>
