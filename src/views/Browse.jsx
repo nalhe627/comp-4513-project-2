@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { Accordion, AccordionItem } from "@heroui/accordion";
 import { Checkbox, CheckboxGroup } from "@heroui/checkbox";
 import { Radio, RadioGroup } from "@heroui/radio";
+
+import ProductList from "../components/ProductList";
 import { CartContext } from "../components/CartContext";
 
 // Hardcode categories, sizes, and materials for now (we could possibly keep it)
@@ -73,7 +75,7 @@ const COLORS = [
     { name: "Yellow", hex: "bg-[#fffb00ff]" },
 ];
 
-const Browse = ({ gender, category }) => {
+const Browse = ({ products, gender, category, change }) => {
     const { cart, setCart } = useContext(CartContext);
     const [loading, setLoading] = useState(true);
     // const [currGender, setCurrGender] = useState("");
@@ -137,6 +139,7 @@ const Browse = ({ gender, category }) => {
         <section className="flex border p-5 m-5 flex-grow rounded-lg gap-4">
 
             {/* Filter section */}
+            {/* TODO: make the fitler a separate component */}
             <div className="border basis-1/5 p-5 rounded-lg">
                 <p className="font-bold text-xl mb-5">Filters</p>
                 <Accordion
@@ -189,6 +192,7 @@ const Browse = ({ gender, category }) => {
                     </AccordionItem>
 
                     {/* Color filter */}
+                    {/* TODO: make all color boxes with the same alignment */}
                     <AccordionItem key={4} title="Color">
                         <CheckboxGroup 
                             color="default" 
@@ -220,6 +224,7 @@ const Browse = ({ gender, category }) => {
             {/* Product section */}
             <div className="border basis-4/5 p-5 rounded-lg">
                 <p className="font-bold text-xl">Products</p>
+                <ProductList products={products} change={change} />
             </div>
         </section>
     );
