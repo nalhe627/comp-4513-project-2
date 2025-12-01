@@ -89,6 +89,8 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
      * @param {object} Object representing the current filters to use 
      */
     const refilterProducts = (currFilters) => {
+        setFilters(currFilters);
+
         let tempProducts = [...products];
 
         if (currFilters.gender) {
@@ -146,8 +148,6 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
     const changeGender = (selectedGender) => {
         const currFilters = { ...filters, gender: selectedGender };
 
-        setFilters(currFilters);
-
         refilterProducts(currFilters);
     };
 
@@ -159,8 +159,6 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
     const changeCategories = (selectedCategories) => {
         const currFilters = { ...filters, categories: selectedCategories };
        
-        setFilters(currFilters);
-
         refilterProducts(currFilters);
     }
 
@@ -172,8 +170,6 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
     const changeSizes = (selectedSizes) => {
         const currFilters = { ...filters, sizes: selectedSizes };
 
-        setFilters(currFilters);
-
         refilterProducts(currFilters);
     }
 
@@ -184,8 +180,6 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
      */
     const changeColors = (selectedColors) => {
         const currFilters = { ...filters, colors: selectedColors };
-        
-        setFilters(currFilters);
 
         refilterProducts(currFilters);
     }
