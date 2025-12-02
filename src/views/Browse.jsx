@@ -272,6 +272,17 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
     const changeColors = (selectedColors) => {
         const currFilters = { ...filters, colors: selectedColors };
 
+        const colorArr = selectedColors.map((color) => ({
+            department: "colors", 
+            value: color
+        }));
+        
+        const noColorArr = filterArr.filter((f) => f.department !== "colors");
+
+        setFilterArr([
+            ...noColorArr,
+            ...colorArr
+        ]);
         refilterProducts(currFilters);
     }
 
