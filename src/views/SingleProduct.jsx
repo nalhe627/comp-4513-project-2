@@ -1,18 +1,10 @@
 import { useState, useContext, useEffect } from "react";
 import { CartContext } from "../components/CartContext";
-<<<<<<< Updated upstream
-
-const SingleProduct = (props) => {
-=======
 import shirt from "../assets/shirt.jpg";
 const SingleProduct = ({ product }) => {
->>>>>>> Stashed changes
     const { cart, setCart } = useContext(CartContext);
 
     return (
-<<<<<<< Updated upstream
-        <></>
-=======
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto my-6 p-4 bg-white rounded-md shadow-sm">
             <div>
                 <div className="flex justify-center w-full h-96 bg-gray-200 rounded-lg flex items-center">
@@ -58,7 +50,6 @@ const SingleProduct = ({ product }) => {
                 </div>
             </div>
         </div>
->>>>>>> Stashed changes
     );
 }
 
