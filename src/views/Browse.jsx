@@ -3,7 +3,7 @@ import { Accordion, AccordionItem } from "@heroui/accordion";
 import { Checkbox, CheckboxGroup } from "@heroui/checkbox";
 import { Radio, RadioGroup } from "@heroui/radio";
 import { Chip } from "@heroui/chip";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown";
+import { Select, SelectItem } from "@heroui/select";
 
 import ProductList from "../components/ProductList";
 import { CartContext } from "../components/CartContext";
@@ -367,15 +367,28 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
 
             {/* Product section */}
             <div className="border basis-4/5 p-5 rounded-lg">
-                <div className="flex gap-10">
-                    <p className="font-bold text-xl">Results ({filteredProducts.length})</p>
-                    <div className="flex gap-2">
-                        {filterArr.map((filter, i) => (
-                            <Chip key={i} onClose={() => removeFilter(filter)}>
-                                {formatFilterText(filter.value)}
-                            </Chip>
-                        ))}
+                <div className="flex items-center justify-between">
+                    <div className="flex gap-8">
+                        <p className="font-bold text-xl">Results ({filteredProducts.length})</p>
+                        <div className="flex gap-2">
+                            {filterArr.map((filter, i) => (
+                                <Chip key={i} onClose={() => removeFilter(filter)}>
+                                    {formatFilterText(filter.value)}
+                                </Chip>
+                            ))}
+                        </div>
                     </div>
+                    <Select 
+                        className="max-w-3xs" 
+                        label="Sort By" 
+                        defaultSelectedKeys={["name"]} 
+                        disallowEmptySelection
+                    >
+                        <SelectItem key="name">Product Name</SelectItem>
+                        <SelectItem key="high price">Highest Price</SelectItem>
+                        <SelectItem key="low price">Lowest Price</SelectItem>
+                        <SelectItem key="category">Category</SelectItem>
+                    </Select>
                 </div>
                 {filteredProducts.length === 0 && (
                     <p className="text-center text-gray-500/80 text-3xl font-semibold my-10">
