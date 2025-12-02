@@ -88,7 +88,7 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
     /**
      * Filters the products everytime a specific filter (e.g., gender) is changed.
      * 
-     * @param {object} Object representing the current filters to use 
+     * @param {Object} currFilter Object representing the current filters to use 
      */
     const refilterProducts = (currFilters) => {
         setFilters(currFilters);
@@ -139,7 +139,12 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
         setFilteredProducts(tempProducts);
     };
 
-    
+    /**
+     * Removes the specific filter from the `filterArr`state.
+     * Also refilters the products to be displayed to the user.
+     * 
+     * @param {Object} currFilter Object representing the filter to remove from `filterArr` state
+     */
     const removeFilter = (currFilter) => {
         setFilterArr(filterArr.filter((f) => f.value !== currFilter.value));
 
@@ -156,19 +161,6 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
         setFilters(tempFilters);
         refilterProducts(tempFilters);
     };
-
-    /**
-     * 
-     * @returns 
-     */
-    const getFilters = () => {
-        // Using flat method cause some values for filters are arrays
-        return Object.values(filters).flat().map((filter, i) => filter && (
-            <Chip key={i} onClose={removeFilter}>
-                {filter}
-            </Chip>
-        ));
-    }
 
     /**
      * Formats the text used in the `Chip` component for each filter.
