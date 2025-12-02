@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { CartContext } from "../components/CartContext";
 import shirt from "../assets/shirt.jpg";
+import AdminDrawer from "../components/AdminDrawer";
 const SingleProduct = ({ product }) => {
     const { cart, setCart } = useContext(CartContext);
-
     if (!product) return null;
 
     return (
@@ -50,7 +50,14 @@ const SingleProduct = ({ product }) => {
                         )
                     })}
                 </div>
+                <div className="flex gap-2 mb-1">
+                    <button className="bg-blue-600 text-white px-6 py-2 rounded mb-3 w-full cursor-pointer">Add To Cart</button>
+                </div>
+                <div className="flex gap-2 mb-6">
+                    <AdminDrawer product={product} />
+                </div>
             </div>
+            
         </div>
     );
 };
