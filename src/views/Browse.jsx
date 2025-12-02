@@ -170,6 +170,10 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
         ));
     }
 
+    const formatGender = (gender) => {
+        return gender === "mens" ? "Men" : "Women";
+    };
+
     /**
      * Changes the gender property in the filter state.
      *
@@ -180,11 +184,13 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
      */
     const changeGender = (selectedGender) => {
         const currFilters = { ...filters, gender: selectedGender };
-        const formattedGender = selectedGender === "mens" ? "Men" : "Women";
 
-        // filterArr.find()
+        const noGenderArr = filterArr.filter((f) => f.department !== "gender");
 
-        setFilterArr([...filterArr, { department: "gender", value: selectedGender }]);
+        setFilterArr([
+            ...noGenderArr, 
+            { department: "gender", value: selectedGender }
+        ]);
         refilterProducts(currFilters);
     };
 
@@ -314,7 +320,9 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
                     <div className="flex gap-2">
                         {filterArr.map((filter, i) => (
                             <Chip key={i} onClose={() => removeFilter(filter)}>
-                                {filter.value}
+                                {filter.value === "mens" || filter.value === "womens"
+                                    ? formatGender(filter.value)
+                                    : filter}
                             </Chip>
                         ))};
                         {/* <Chip onClose={removeFilter}>Blue</Chip> */}
