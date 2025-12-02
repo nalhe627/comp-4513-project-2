@@ -148,7 +148,7 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
 
         if (Array.isArray(departmentFilters)) {
             const tempArr = departmentFilters.filter((f) => f !== currFilter.value);
-            tempFilters[departmentFilters] = tempArr;
+            tempFilters[currFilter.department] = tempArr;
         } else {
             delete tempFilters[currFilter.department];
         }
@@ -170,8 +170,34 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
         ));
     }
 
-    const formatGender = (gender) => {
-        return gender === "mens" ? "Men" : "Women";
+    /**
+     * Formats the text used in the `Chip` component for each filter.
+     * 
+     * Only formats the text for filters related to gender or size.
+     * 
+     * @param {string} filterText the string to format
+     * @returns 
+     */
+    const formatFilterText = (filterText) => {
+        switch (filterText) {
+            case "XS":
+                return "Extra Small";
+            case "S":
+                return "Small";
+            case "M":
+                return "Medium";
+            case "L":
+                return "Large";
+            case "XL":
+                return "Extra Large";
+            case "mens":
+                return "Men";
+            case "womens":
+                return "Women";
+            // Don't format if not gender or size
+            default:
+                return filterText;
+        }
     };
 
     /**
@@ -201,7 +227,18 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
      */
     const changeCategories = (selectedCategories) => {
         const currFilters = { ...filters, categories: selectedCategories };
-       
+
+        const categoryArr = selectedCategories.map((category) => ({
+            department: "categories", 
+            value: category
+        }));
+        
+        const noCategoryArr = filterArr.filter((f) => f.department !== "categories");
+
+        setFilterArr([
+            ...noCategoryArr,
+            ...categoryArr
+        ]);
         refilterProducts(currFilters);
     }
 
@@ -212,7 +249,18 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
      */
     const changeSizes = (selectedSizes) => {
         const currFilters = { ...filters, sizes: selectedSizes };
+        
+        const sizeArr = selectedSizes.map((size) => ({
+            department: "sizes", 
+            value: size
+        }));
+        
+        const noSizeArr = filterArr.filter((f) => f.department !== "sizes");
 
+        setFilterArr([
+            ...noSizeArr,
+            ...sizeArr
+        ]);
         refilterProducts(currFilters);
     }
 
@@ -320,11 +368,9 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
                     <div className="flex gap-2">
                         {filterArr.map((filter, i) => (
                             <Chip key={i} onClose={() => removeFilter(filter)}>
-                                {filter.value === "mens" || filter.value === "womens"
-                                    ? formatGender(filter.value)
-                                    : filter}
+                                {formatFilterText(filter.value)}
                             </Chip>
-                        ))};
+                        ))}
                         {/* <Chip onClose={removeFilter}>Blue</Chip> */}
                     </div>
                 </div>
