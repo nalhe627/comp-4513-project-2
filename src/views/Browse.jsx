@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Accordion, AccordionItem } from "@heroui/accordion";
 import { Checkbox, CheckboxGroup } from "@heroui/checkbox";
 import { Radio, RadioGroup } from "@heroui/radio";
+import { Chip } from "@heroui/chip";
 
 import ProductList from "../components/ProductList";
 import { CartContext } from "../components/CartContext";
@@ -82,6 +83,7 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
 
     // Not sure if filters should be an array or object (using object for now)
     const [filters, setFilters] = useState({ gender, categories });
+    const [filterArr, setFilterArr] = useState([]);
 
     /**
      * Filters the products everytime a specific filter (e.g., gender) is changed.
@@ -137,6 +139,37 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
         setFilteredProducts(tempProducts);
     };
 
+    
+    const removeFilter = (currFilter) => {
+        setFilterArr(filterArr.filter((f) => f.value !== currFilter.value));
+
+        const tempFilters = { ...filters };
+        const departmentFilters = tempFilters[currFilter.department];
+
+        if (Array.isArray(departmentFilters)) {
+            const tempArr = departmentFilters.filter((f) => f !== currFilter.value);
+            tempFilters[departmentFilters] = tempArr;
+        } else {
+            delete tempFilters[currFilter.department];
+        }
+
+        setFilters(tempFilters);
+        refilterProducts(tempFilters);
+    };
+
+    /**
+     * 
+     * @returns 
+     */
+    const getFilters = () => {
+        // Using flat method cause some values for filters are arrays
+        return Object.values(filters).flat().map((filter, i) => filter && (
+            <Chip key={i} onClose={removeFilter}>
+                {filter}
+            </Chip>
+        ));
+    }
+
     /**
      * Changes the gender property in the filter state.
      *
@@ -147,7 +180,11 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
      */
     const changeGender = (selectedGender) => {
         const currFilters = { ...filters, gender: selectedGender };
+        const formattedGender = selectedGender === "mens" ? "Men" : "Women";
 
+        // filterArr.find()
+
+        setFilterArr([...filterArr, { department: "gender", value: selectedGender }]);
         refilterProducts(currFilters);
     };
 
@@ -203,8 +240,8 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
                             value={filters.gender}
                             onValueChange={changeGender}
                         >
-                            <Radio value="mens">Male</Radio>
-                            <Radio value="womens">Female</Radio>
+                            <Radio value="mens">Men</Radio>
+                            <Radio value="womens">Women</Radio>
                         </RadioGroup>
                     </AccordionItem>
 
@@ -272,7 +309,17 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
 
             {/* Product section */}
             <div className="border basis-4/5 p-5 rounded-lg">
-                <p className="font-bold text-xl">Products ({filteredProducts.length})</p>
+                <div className="flex gap-10">
+                    <p className="font-bold text-xl">Products ({filteredProducts.length})</p>
+                    <div className="flex gap-2">
+                        {filterArr.map((filter, i) => (
+                            <Chip key={i} onClose={() => removeFilter(filter)}>
+                                {filter.value}
+                            </Chip>
+                        ))};
+                        {/* <Chip onClose={removeFilter}>Blue</Chip> */}
+                    </div>
+                </div>
                 <ProductList products={filteredProducts} changeProduct={changeProduct} />
             </div>
         </section>
