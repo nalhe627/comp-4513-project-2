@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Accordion, AccordionItem } from "@heroui/accordion";
 import { Checkbox, CheckboxGroup } from "@heroui/checkbox";
 import { Radio, RadioGroup } from "@heroui/radio";
@@ -6,7 +6,6 @@ import { Chip } from "@heroui/chip";
 import { Select, SelectItem } from "@heroui/select";
 
 import ProductList from "../components/ProductList";
-import { CartContext } from "../components/CartContext";
 
 // Hardcode categories, sizes, and materials for now (we could possibly keep it)
 const CATEGORIES = [
@@ -78,13 +77,15 @@ const COLORS = [
 ];
 
 const Browse = ({ products, gender, categories, changeProduct }) => {
-    const { cart, setCart } = useContext(CartContext);
     const [loading, setLoading] = useState(true);
     const [filteredProducts, setFilteredProducts] = useState(products);
 
     // Not sure if filters should be an array or object (using object for now)
     const [filters, setFilters] = useState({ gender, categories });
     const [filterArr, setFilterArr] = useState([]);
+
+    // Specfic state for gender in order to deselect the gender
+    const [selectedGender, setSelectedGender] = useState(gender);
 
     /**
      * Filters the products everytime a specific filter (e.g., gender) is changed.
@@ -147,6 +148,10 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
      * @param {Object} currFilter Object representing the filter to remove from `filterArr` state
      */
     const removeFilter = (currFilter) => {
+        // Uncheck the radio box
+        if (currFilter.value === "mens" || currFilter.value === "womens") {
+            setSelectedGender(null)
+        }
         setFilterArr(filterArr.filter((f) => f.value !== currFilter.value));
 
         const tempFilters = { ...filters };
@@ -202,6 +207,7 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
      * @param {string} selectedGender the gender to change to in the filter state.
      */
     const changeGender = (selectedGender) => {
+        setSelectedGender(selectedGender);
         const currFilters = { ...filters, gender: selectedGender };
 
         const noGenderArr = filterArr.filter((f) => f.department !== "gender");
@@ -295,8 +301,9 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
                         <RadioGroup
                             color="default"
                             className="pb-3"
-                            value={filters.gender}
+                            value={selectedGender}
                             onValueChange={changeGender}
+                            
                         >
                             <Radio value="mens">Men</Radio>
                             <Radio value="womens">Women</Radio>
