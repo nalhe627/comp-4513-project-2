@@ -6,6 +6,7 @@ import { Chip } from "@heroui/chip";
 import { Select, SelectItem } from "@heroui/select";
 
 import ProductList from "../components/ProductList";
+import { Button } from "@heroui/button";
 
 // Hardcode categories, sizes, and materials for now (we could possibly keep it)
 const CATEGORIES = [
@@ -154,7 +155,7 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
     const removeFilter = (currFilter) => {
         // Uncheck the radio box
         if (currFilter.value === "mens" || currFilter.value === "womens") {
-            setSelectedGender(null)
+            setSelectedGender(null);
         }
         setFilterArr(filterArr.filter((f) => f.value !== currFilter.value));
 
@@ -173,6 +174,21 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
     };
 
     /**
+     * Clears all the current filters applied.
+     */
+    const removeAllFilters = () => {
+        setFilterArr([]);
+        setFilters({
+            gender: undefined,
+            categories: [],
+            sizes: [],
+            colors: [],
+        });
+        setSelectedGender(null);
+        setFilteredProducts(sortProducts(products, sortType));
+    }
+
+    /**
      * Sorts the products based on the provided sortType.
      * 
      * Could be sorted by name, highest price, lowest price, or category.
@@ -184,6 +200,7 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
     const sortProducts = (currProducts, newSortType) => {
         switch (newSortType) {
             case "name":
+                // Products are sorted alphabetically (A-Z)
                 console.log("sorting by name");
                 return currProducts.toSorted((a, b) => a.name < b.name ? -1 : 1);
             case "high price":
@@ -193,11 +210,17 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
                 console.log("sorting by low");
                 return currProducts.toSorted((a, b) => a.price - b.price);
             case "category":
+                console.log("sorting by category");
                 // TODO: figure out how to sort by category later
                 return currProducts.toSorted();
         }
     }
     
+    /**
+     * Handles the logic for when the user changes the sort selection.
+     * 
+     * @param {Event} e the event that caused the change
+     */
     const handleSortChange = (e) => {
         const newSortType = e.target.value;
 
@@ -412,15 +435,8 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
             {/* Product section */}
             <div className="border basis-4/5 p-5 rounded-lg">
                 <div className="flex items-center justify-between">
-                    <div className="flex gap-8">
+                    <div className="flex gap-8 items-center">
                         <p className="font-bold text-xl">Results ({filteredProducts.length})</p>
-                        <div className="flex gap-2">
-                            {filterArr.map((filter, i) => (
-                                <Chip key={i} onClose={() => removeFilter(filter)}>
-                                    {formatFilterText(filter.value)}
-                                </Chip>
-                            ))}
-                        </div>
                     </div>
                     <Select 
                         className="max-w-3xs" 
@@ -434,6 +450,23 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
                         <SelectItem key="low price">Lowest Price</SelectItem>
                         <SelectItem key="category">Category</SelectItem>
                     </Select>
+                </div>
+                
+                {/* Chips of applied filters */}
+                <div className="flex flex-wrap gap-2 items-center pt-5">
+                    {filterArr.length > 0 && (
+                        <p 
+                            onClick={removeAllFilters} 
+                            className="underline px-2 cursor-pointer font-semibold underline-offset-3"
+                        >
+                            Clear All
+                        </p>
+                    )}
+                    {filterArr.map((filter, i) => (
+                        <Chip key={i} onClose={() => removeFilter(filter)}>
+                            {formatFilterText(filter.value)}
+                        </Chip>
+                    ))}
                 </div>
                 {filteredProducts.length === 0 && (
                     <p className="text-center text-gray-500/80 text-3xl font-semibold my-10">
