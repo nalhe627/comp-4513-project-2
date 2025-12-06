@@ -80,6 +80,9 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
     const [loading, setLoading] = useState(true);
     const [filteredProducts, setFilteredProducts] = useState(products);
 
+    // Default sort is by name
+    const [sortType, setSortType] = useState("name");
+
     // Not sure if filters should be an array or object (using object for now)
     const [filters, setFilters] = useState({ gender, categories });
     const [filterArr, setFilterArr] = useState([]);
@@ -138,6 +141,7 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
             console.log("filtered colors");
         }
 
+        tempProducts = sortProducts(tempProducts, sortType);
         setFilteredProducts(tempProducts);
     };
 
@@ -169,12 +173,45 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
     };
 
     /**
+     * Sorts the products based on the provided sortType.
+     * 
+     * Could be sorted by name, highest price, lowest price, or category.
+     * 
+     * @param {Object[]} currProducts the current products to sort
+     * @param {string} newSortType string representing how to sort the products
+     * @returns {Object[]} An array of products that have been sorted
+     */
+    const sortProducts = (currProducts, newSortType) => {
+        switch (newSortType) {
+            case "name":
+                console.log("sorting by name");
+                return currProducts.toSorted((a, b) => a.name < b.name ? -1 : 1);
+            case "high price":
+                console.log("sorting by high");
+                return currProducts.toSorted((a, b) => b.price - a.price);
+            case "low price":
+                console.log("sorting by low");
+                return currProducts.toSorted((a, b) => a.price - b.price);
+            case "category":
+                // TODO: figure out how to sort by category later
+                return currProducts.toSorted();
+        }
+    }
+    
+    const handleSortChange = (e) => {
+        const newSortType = e.target.value;
+
+        setSortType(newSortType);
+        setFilteredProducts(sortProducts(filteredProducts, newSortType));
+    }
+
+    /**
      * Formats the text used in the `Chip` component for each filter.
      * 
      * Only formats the text for filters related to gender or size.
      * 
      * @param {string} filterText the string to format
-     * @returns 
+     * @returns {string} A string that's been formatted appropriately
      */
     const formatFilterText = (filterText) => {
         switch (filterText) {
@@ -390,6 +427,7 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
                         label="Sort By" 
                         defaultSelectedKeys={["name"]} 
                         disallowEmptySelection
+                        onChange={handleSortChange}
                     >
                         <SelectItem key="name">Product Name</SelectItem>
                         <SelectItem key="high price">Highest Price</SelectItem>
