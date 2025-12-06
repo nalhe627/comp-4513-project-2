@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Accordion, AccordionItem } from "@heroui/accordion";
 import { Checkbox, CheckboxGroup } from "@heroui/checkbox";
 import { Radio, RadioGroup } from "@heroui/radio";
@@ -6,7 +6,6 @@ import { Chip } from "@heroui/chip";
 import { Select, SelectItem } from "@heroui/select";
 
 import ProductList from "../components/ProductList";
-import { Button } from "@heroui/button";
 
 // Hardcode categories, sizes, and materials for now (we could possibly keep it)
 const CATEGORIES = [
@@ -79,16 +78,20 @@ const COLORS = [
 
 const Browse = ({ products, gender, categories, changeProduct }) => {
     const [loading, setLoading] = useState(true);
-    const [filteredProducts, setFilteredProducts] = useState(products);
 
     // Default sort is by name
     const [sortType, setSortType] = useState("name");
+
+    // Need to sort products by name first before rendering
+    const [filteredProducts, setFilteredProducts] = useState(
+        products.toSorted((a, b) => a.name < b.name ? -1 : 1)
+    );
 
     // Not sure if filters should be an array or object (using object for now)
     const [filters, setFilters] = useState({ gender, categories });
     const [filterArr, setFilterArr] = useState([]);
 
-    // Specfic state for gender in order to deselect the gender
+    // Specfic state for gender in order to deselect the gender radio button
     const [selectedGender, setSelectedGender] = useState(gender);
 
     /**
@@ -346,11 +349,11 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
     }
 
     return (
-        <section className="flex border p-5 m-5 flex-grow rounded-lg gap-4">
+        <section className="flex p-5 m-5 items-start flex-grow rounded-lg gap-4">
 
             {/* Filter section */}
             {/* TODO: make the fitler a separate component */}
-            <div className="border basis-1/5 p-5 rounded-lg">
+            <div className="bg-gray-100 basis-1/5 p-5 rounded-lg shadow-sm">
                 <p className="font-bold text-xl mb-5">Filters</p>
                 <Accordion
                     selectionMode="multiple"
@@ -433,7 +436,8 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
             </div>
 
             {/* Product section */}
-            <div className="border basis-4/5 p-5 rounded-lg">
+            {/* TODO: put into separate component */}
+            <div className="basis-4/5 p-5 rounded-lg">
                 <div className="flex items-center justify-between">
                     <div className="flex gap-8 items-center">
                         <p className="font-bold text-xl">Results ({filteredProducts.length})</p>

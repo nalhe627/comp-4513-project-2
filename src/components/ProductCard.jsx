@@ -1,7 +1,9 @@
 import { useContext } from "react";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
+import { Image } from "@heroui/image";
 import { CartContext } from "./CartContext";
+import placeholderImg from '../assets/shirt.jpg';
 
 const ProductCard = ({ product, onProductClick }) => {
     const { cart, setCart } = useContext(CartContext);
@@ -18,17 +20,14 @@ const ProductCard = ({ product, onProductClick }) => {
     };
 
     return (
-        <li className="rounded-md shadow-sm cursor-pointer">
-            <Link href="/product" className="p-3 flex flex-col gap-3" onPress={onProductClick}>
-                {product.image && <img src={product.image} alt={product.name} className="w-full h-40 object-cover rounded-md" />}
+        <li className="rounded-md shadow-sm cursor-pointer hover:shadow-md w-fit">
+            <Link href="/product" className="p-5 px-10 flex flex-col gap-3" onPress={onProductClick}>
+                <Image src={placeholderImg} width={200} />
                 <div className="flex flex-col">
-                    <h3 className="font-medium truncate">{product.name}</h3>
+                    <h3 className="font-medium truncate text-black">{product.name}</h3>
                     <p className="text-sm text-gray-600">${product.price}</p>
                 </div>
-                {/* <div className="flex gap-2 mt-auto"> */}
-                    {/* <button onClick={addCart} className="px-3 py-1 bg-blue-600 text-white rounded">Add to Cart</button> */}
-                    <Button onClick={addCart} className="px-3 py-1 bg-blue-600 text-white rounded">Add to Cart</Button>
-                {/* </div> */}
+                <Button onClick={addCart} color="primary" variant="ghost" className="rounded">Add to Cart</Button>
             </Link>
         </li>
     );
