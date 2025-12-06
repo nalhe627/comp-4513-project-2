@@ -37,7 +37,7 @@ const App = (props) => {
       <CartContextProvider>
         <main className="flex flex-col justify-between min-h-screen">
           <Header />
-          <HeroSection title="Welcome to Justin & Norris Store" image={mensHero} />
+          {/* <HeroSection title="Welcome to Justin & Norris Store" image={mensHero} /> */}
           {/* <CategoryGrid data={products} /> */}
           <ProductList products={products} change={changeProduct} />
           {selectedProduct !== null && (
@@ -48,6 +48,7 @@ const App = (props) => {
         </main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<ShoppingCart />} />
         </Routes>
       </CartContextProvider>
     </HeroUIProvider>

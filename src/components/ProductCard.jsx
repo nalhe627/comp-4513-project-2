@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CartContext } from "./CartContext";
 
 const ProductCard = ({ product }) => {
-    const { cart, setCart } = useContext(CartContext);
+    const { cart, setCart, addToCart } = useContext(CartContext);
 
     const addCart = () => {
         const existing = cart.find((c) => c.id === product.id);
@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
                 <p className="text-sm text-gray-600">${product.price}</p>
             </div>
             <div className="flex gap-2 mt-auto">
-                <button onClick={addCart} className="px-3 py-1 bg-blue-600 text-white rounded">Add to Cart</button>
+                <button onClick={() => addToCart(product)} className="px-3 py-1 bg-blue-600 text-white rounded cursor-pointer">Add to Cart</button>
             </div>
         </div>
     );
