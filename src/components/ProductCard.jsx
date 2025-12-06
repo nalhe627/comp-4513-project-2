@@ -37,6 +37,12 @@ const ProductCard = ({ product, onProductClick }) => {
 
                 </div>
                 <div className="flex flex-col self-start">
+                    <div 
+                        className={`rounded-xs w-[20px] h-[20px] mb-2 ${
+                            product.color[0].hex && "border border-black/30"}`}
+                        style={{ backgroundColor: product.color[0].hex }}
+                    >
+                    </div>
                     <h3 className="font-medium truncate text-black">{product.name}</h3>
                     <p className="text-sm text-gray-600">${product.price}</p>
                 </div>
