@@ -1,11 +1,28 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../components/CartContext";
 import shirt from "../assets/shirt.jpg";
 import AdminDrawer from "../components/AdminDrawer";
 const SingleProduct = ({ product }) => {
-    const { cart, setCart } = useContext(CartContext);
-    if (!product) return null;
+    const { addToCart } = useContext(CartContext);
 
+    const [selectedSize, setSelectedSize] = useState(null);
+    const [selectedColor, setSelectedColor] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+
+    if (!product) return null;
+    const editProduct = () => {
+        if (!selectedSize || !selectedColor) {
+            alert("Please select a color and size.");
+            return;
+        }
+
+        addToCart({
+            ...product,
+            selectedSize,
+            selectedColor,
+            quantity,
+        });
+    }
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto my-6 p-4 bg-white rounded-md shadow-sm">
             <div>
@@ -30,34 +47,36 @@ const SingleProduct = ({ product }) => {
                 {/* <p className="text-gray-700 mb-4">{product.material}</p> */}
 
                 <label>Quantity</label>
-                <input type="number" className="border p-2 w-20 ml-2 mb-4 rounded"/>
+                <input type="number" min="1" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} className="border p-2 w-20 ml-2 mb-4 rounded" />
 
                 <div className="flex gap-2 mb-4">
                     {product.sizes.map((s, index) => {
+                        const active = s === selectedSize;
                         return (
-                        <button key={index} className="border px-4 py-2 rounded mr-2 cursor-pointer">{s}</button>
+                            <button key={index} onClick={() => setSelectedSize(s)} className={` px-4 py-2 rounded border ${active ? "bg-blue-600 text-white border-blue-600" : "bg-white text-gray-800"}`}>{s}</button>
                         );
                     })}
                 </div>
                 <div className="flex gap-2 mb-6">
                     {product.color.map((c, index) => {
+                        const active = selectedColor?.name === c.name;
                         return (
                             <div key={index} className="flex items-center gap-2 ">
-                                <button style={{backgroundColor: c.hex}} className="w-8 h-8 rounded cursor-pointer border" />
-                                <span className="text-sm text-gray-700">{c.name}</span>
-                                
+                                <button style={{ backgroundColor: c.hex }} onClick={() => setSelectedColor(c)} className="w-8 h-8 rounded cursor-pointer border" />
+                                <span className={active ? "font-semibold text-blue-600" : "text-gray-700"}>{c.name}</span>
+
                             </div>
                         )
                     })}
                 </div>
                 <div className="flex gap-2 mb-1">
-                    <button className="bg-blue-600 text-white px-6 py-2 rounded mb-3 w-full cursor-pointer">Add To Cart</button>
+                    <button onClick={editProduct} className="bg-blue-600 text-white px-6 py-2 rounded mb-3 w-full cursor-pointer">Add To Cart</button>
                 </div>
                 <div className="flex gap-2 mb-6">
                     <AdminDrawer product={product} />
                 </div>
             </div>
-            
+
         </div>
     );
 };

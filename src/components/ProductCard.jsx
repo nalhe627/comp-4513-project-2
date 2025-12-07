@@ -1,10 +1,17 @@
 import { useContext } from "react";
+import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
+import { Image } from "@heroui/image";
 import { CartContext } from "./CartContext";
+import placeholderImg from '../assets/shirt.jpg';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onProductClick }) => {
     const { cart, setCart } = useContext(CartContext);
 
-    const addCart = () => {
+    const addCart = (e) => {
+        // Prevent the click from also navigating to the product view
+        e.preventDefault();
+
         const existing = cart.find((c) => c.id === product.id);
         if (!existing) {
             const newCart = [...cart, { ...product }];
@@ -13,16 +20,35 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <div className="bg-white rounded-md shadow-sm p-3 flex flex-col gap-3">
-            {product.image && <img src={product.image} alt={product.name} className="w-full h-40 object-cover rounded-md" />}
-            <div className="flex flex-col">
-                <h3 className="font-medium truncate">{product.name}</h3>
-                <p className="text-sm text-gray-600">${product.price}</p>
-            </div>
-            <div className="flex gap-2 mt-auto">
-                <button onClick={addCart} className="px-3 py-1 bg-blue-600 text-white rounded">Add to Cart</button>
-            </div>
-        </div>
+        <li className="rounded-md shadow-sm cursor-pointer hover:shadow-md w-fit">
+            <Link href="/product" className="p-5 px-8 flex flex-col gap-3" onPress={onProductClick}>
+                <div>
+                    <Image src={placeholderImg} width={200} />
+                    <Button 
+                        onClick={addCart} 
+                        color="primary" 
+                        variant="ghost"
+                        className="z-10 absolute right-11 top-61 text-lg font-medium"
+                        isIconOnly
+                        size="sm"
+                    >
+                        +
+                    </Button>
+
+                </div>
+                <div className="flex flex-col self-start">
+                    <div 
+                        className={`rounded-xs w-[20px] h-[20px] mb-2 ${
+                            product.color[0].hex && "border border-black/30"}`}
+                        style={{ backgroundColor: product.color[0].hex }}
+                    >
+                    </div>
+                    <h3 className="font-medium truncate text-black">{product.name}</h3>
+                    <p className="text-sm text-gray-600">${product.price}</p>
+                </div>
+                {/* <Button onClick={addCart} color="primary" variant="ghost" className="rounded">Add to Cart</Button> */}
+            </Link>
+        </li>
     );
 };
 
