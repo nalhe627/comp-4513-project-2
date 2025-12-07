@@ -28,7 +28,7 @@ const ProductCard = ({ product, onProductClick }) => {
                         onClick={addCart} 
                         color="primary" 
                         variant="ghost"
-                        className="z-10 absolute right-11 top-61 text-lg"
+                        className="z-10 absolute right-11 top-61 text-lg font-medium"
                         isIconOnly
                         size="sm"
                     >
