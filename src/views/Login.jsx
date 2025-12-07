@@ -1,7 +1,7 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { CartContext } from "../components/CartContext";
 
-const Login = (props) => {
+const Login = () => {
     const { cart, setCart } = useContext(CartContext);
 
     return (
