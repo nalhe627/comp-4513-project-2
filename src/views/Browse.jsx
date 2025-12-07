@@ -63,7 +63,7 @@ const COLORS = [
     { name: "Blue", hex: "bg-[#0066ffff]" },
     { name: "Brown", hex: "bg-[#a36537ff]" },
     { name: "Burgundy", hex: "bg-[#660033]" },
-    { name: "Camel", hex: "bg-[#c695f9]" },
+    { name: "Camel", hex: "bg-[#c19a6b]" },
     { name: "Charcoal", hex: "bg-[#36454f]" },
     { name: "Gold", hex: "bg-[#ebdd1eff]" },
     { name: "Gray", hex: "bg-[#8b8b8bff]" },
