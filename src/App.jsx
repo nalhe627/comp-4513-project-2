@@ -1,7 +1,8 @@
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate, useHref } from "react-router-dom";
 import { HeroUIProvider } from "@heroui/system";
 import { CartContextProvider } from "./components/CartContext";
+import { LoginContextProvider } from "./components/LoginContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ShoppingCart from "./views/ShoppingCart";
@@ -37,25 +38,27 @@ const App = () => {
   
   return (
     <HeroUIProvider navigate={navigate} useHref={useHref}>
-      <CartContextProvider>
-        <main className="flex flex-col justify-between min-h-screen">
-          <Header />
-          {/* <HeroSection title="Welcome to Justin & Norris Store" image={mensHero} /> */}
-          {/* <CategoryGrid data={products} /> */}
-          {/* <ProductList products={products} change={changeProduct} /> */}
-          {/* {selectedProduct !== null && (
-            <SingleProduct product={products[selectedProduct]} />
-          )} */}
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/browse" element={<Browse products={products} changeProduct={changeProduct} />} />
-              <Route path="/product" element={<SingleProduct product={selectedProduct} />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          {/* <ShoppingCart /> */}
-          <Footer />
-        </main>
-      </CartContextProvider>
+      <LoginContextProvider>
+        <CartContextProvider>
+          <main className="flex flex-col justify-between min-h-screen">
+            <Header />
+            {/* <HeroSection title="Welcome to Justin & Norris Store" image={mensHero} /> */}
+            {/* <CategoryGrid data={products} /> */}
+            {/* <ProductList products={products} change={changeProduct} /> */}
+            {/* {selectedProduct !== null && (
+              <SingleProduct product={products[selectedProduct]} />
+            )} */}
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/browse" element={<Browse products={products} changeProduct={changeProduct} />} />
+                <Route path="/product" element={<SingleProduct product={selectedProduct} />} />
+                <Route path="/login" element={<Login />} />
+              </Routes>
+            {/* <ShoppingCart /> */}
+            <Footer />
+          </main>
+        </CartContextProvider>
+      </LoginContextProvider>
     </HeroUIProvider>
   );
 };
