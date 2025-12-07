@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 import ShoppingCart from "./views/ShoppingCart";
 import Home from "./views/Home";
 import Browse from "./views/Browse";
-// import "./App.css";
+import Login from "./views/Login";
 import ProductFilters from "./components/ProductFilters";
 import HeroSection from "./components/HeroSection";
 import mensHero from "./assets/mens-hero.jpg";
@@ -50,6 +50,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/browse" element={<Browse products={products} changeProduct={changeProduct} />} />
               <Route path="/product" element={<SingleProduct product={selectedProduct} />} />
+              <Route path="/login" element={<Login />} />
             </Routes>
           {/* <ShoppingCart /> */}
           <Footer />
