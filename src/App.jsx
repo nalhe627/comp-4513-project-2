@@ -38,7 +38,7 @@ const App = (props) => {
         <main className="flex flex-col justify-between min-h-screen">
           <Header />
           {/* <HeroSection title="Welcome to Justin & Norris Store" image={mensHero} /> */}
-          {/* <CategoryGrid data={products} /> */}
+          <CategoryGrid data={products} gender={"mens"}/>
           <ProductList products={products} change={changeProduct} />
           {selectedProduct !== null && (
             <SingleProduct product={products[selectedProduct]} />
