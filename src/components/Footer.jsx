@@ -7,7 +7,7 @@ const Footer = (props) => {
             <a href="https://github.com/nalhe627/comp-4513-project-2/tree/main" target="_blank">
                 <FontAwesomeIcon icon={faGithub} size="lg" />
             </a>
-            <p className="text-gray-500/80">&copy; 2025 Norris Al-Hejji & Justin Nunez</p>
+            <p className="text-gray-500/80 text-sm">&copy; 2025 Norris Al-Hejji & Justin Nunez</p>
         </footer>
     );
 };
