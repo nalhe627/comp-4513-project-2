@@ -16,6 +16,8 @@ import GetProducts from "./components/GetProducts";
 import CategoryGrid from "./components/CategoryGrid";
 import ProductList from "./components/ProductList";
 import SingleProduct from "./views/SingleProduct";
+import Dashboard from "./views/Dashboard";
+
 const App = () => {
   // const { products } = GetProducts();
   const navigate = useNavigate()
@@ -52,6 +54,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/browse" element={<Browse products={products} changeProduct={changeProduct} />} />
                 <Route path="/product" element={<SingleProduct product={selectedProduct} />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/login" element={<Login />} />
               </Routes>
             {/* <ShoppingCart /> */}
