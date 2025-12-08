@@ -16,36 +16,24 @@ const AdminDrawer = ({ product }) => {
   const { cart, setCart } = useContext(CartContext);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const domesticGross = product.sales.domestic * product.price;
-  const internationalGross = product.sales.international * product.price;
-  const totalGross = product.sales.total * product.price;
-
-  const domesticCost = product.sales.domestic * product.cost;
-  const internationalCost = product.sales.international * product.cost;
-  const totalCost = product.sales.total * product.cost;
-
-  const domesticProfit = domesticGross - domesticCost;
-  const internationalProfit = internationalGross - internationalCost;
-  const totalProfit = totalGross - totalCost;
-
   const data = [
     {
       name: "Domestic",
-      Gross: domesticGross,
-      Profit: domesticProfit,
-      Cost: domesticCost
+      Gross: product.domesticGross,
+      Profit: product.domesticProfit,
+      Cost: product.domesticCost
     },
     {
       name: "International",
-      Gross: internationalGross,
-      Profit: internationalProfit,
-      Cost: internationalCost
+      Gross: product.internationalGross,
+      Profit: product.internationalProfit,
+      Cost: product.internationalCost
     },
     {
       name: "Total",
-      Gross: totalGross,
-      Profit: totalProfit,
-      Cost: totalCost
+      Gross: product.totalGross,
+      Profit: product.totalProfit,
+      Cost: product.totalCost
     }
   ]
 
@@ -83,9 +71,9 @@ const AdminDrawer = ({ product }) => {
                   </TableHeader>
                   <TableBody>
                     <TableRow>
-                      <TableCell>$ {domesticGross}</TableCell>
-                      <TableCell>$ {internationalGross}</TableCell>
-                      <TableCell>$ {totalGross}</TableCell>
+                      <TableCell>$ {product.domesticGross}</TableCell>
+                      <TableCell>$ {product.internationalGross}</TableCell>
+                      <TableCell>$ {product.totalGross}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -99,9 +87,9 @@ const AdminDrawer = ({ product }) => {
                   </TableHeader>
                   <TableBody>
                     <TableRow>
-                      <TableCell>$ {domesticCost}</TableCell>
-                      <TableCell>$ {internationalCost}</TableCell>
-                      <TableCell>$ {totalCost}</TableCell>
+                      <TableCell>$ {product.domesticCost}</TableCell>
+                      <TableCell>$ {product.internationalCost}</TableCell>
+                      <TableCell>$ {product.totalCost}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -115,9 +103,9 @@ const AdminDrawer = ({ product }) => {
                   </TableHeader>
                   <TableBody>
                     <TableRow>
-                      <TableCell>$ {domesticProfit}</TableCell>
-                      <TableCell>$ {internationalProfit}</TableCell>
-                      <TableCell>$ {totalProfit}</TableCell>
+                      <TableCell>$ {product.domesticProfit}</TableCell>
+                      <TableCell>$ {product.internationalProfit}</TableCell>
+                      <TableCell>$ {product.totalProfit}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
