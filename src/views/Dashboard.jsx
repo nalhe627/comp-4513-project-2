@@ -111,7 +111,9 @@ const Dashboard = ({ products, changeProduct }) => {
                     </TableBody>
                 </Table>
             </section>
-            <section className="bg-gray-100 row-span-2 rounded-lg">Sales + Profit by Category</section>
+            <section className="bg-gray-100 row-span-2 rounded-lg">
+                <p className="font-bold text-xl text-center mb-5">Sales + Profit by Category</p>
+            </section>
             <section className="bg-gray-100 rounded-lg">Pie Chart</section>
             <section className="bg-gray-100 rounded-lg">Pie Chart</section>
         </div>
