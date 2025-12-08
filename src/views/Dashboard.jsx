@@ -10,6 +10,8 @@ import {
 } from "@heroui/table";
 import { Link } from "@heroui/link";
 
+import { CATEGORIES } from "../constants/filters";
+
 const Dashboard = ({ products, changeProduct }) => {
     const { cart, setCart } = useContext(CartContext);
 
@@ -31,7 +33,34 @@ const Dashboard = ({ products, changeProduct }) => {
         return products
             .toSorted((a, b) => (b.sales.total - b.cost) - (a.sales.total - a.cost))
             .slice(0, 10);
-    }
+    };
+
+    /**
+     * Sums all sales and profits for each category, and returns an array of it.
+     * 
+     * Sorted by category's name alphabetically.
+     * 
+     * @returns {Object[]} An array of all the categories and their total sales and profits
+     */
+    const sortCategories = () => {
+        const categories = CATEGORIES.map((categ) => ({
+            name: categ,
+            sales: 0,
+            profit: 0
+        }))
+
+        for (const product of products) {
+            for (const category of categories) {
+                if (category.name === product.category) {
+                    category.sales += product.sales.total;
+                    category.profit += product.sales.total - product.cost;
+                    break;
+                }
+            }
+        }
+
+        return categories;
+    };
 
     /**
      * Changes the selectedProduct state when the user clicks on the product.
@@ -111,8 +140,24 @@ const Dashboard = ({ products, changeProduct }) => {
                     </TableBody>
                 </Table>
             </section>
-            <section className="bg-gray-100 row-span-2 rounded-lg">
+            <section className="row-span-2 rounded-lg">
                 <p className="font-bold text-xl text-center mb-5">Sales + Profit by Category</p>
+                <Table aria-label="Sales + Profit by Category">
+                    <TableHeader>
+                        <TableColumn>Category</TableColumn>
+                        <TableColumn>Sales ($)</TableColumn>
+                        <TableColumn>Profit ($)</TableColumn>
+                    </TableHeader>
+                    <TableBody items={sortCategories()}>
+                        {(category) => (
+                            <TableRow key={category.name}>
+                                <TableCell>{category.name}</TableCell>
+                                <TableCell>{category.sales}</TableCell>
+                                <TableCell>{category.profit}</TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
             </section>
             <section className="bg-gray-100 rounded-lg">Pie Chart</section>
             <section className="bg-gray-100 rounded-lg">Pie Chart</section>
