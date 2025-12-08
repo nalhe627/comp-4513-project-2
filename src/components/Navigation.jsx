@@ -6,9 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
+import { LoginContext } from "./LoginContext";
 
 const Navigation = () => {
     const { cart } = useContext(CartContext);
+    const { loggedIn, setLoggedIn } = useContext(LoginContext);
     const [currPage, setCurrPage] = useState("");
 
     /**
@@ -18,6 +20,13 @@ const Navigation = () => {
      * @returns the string `"foreground"` if it's the current page, or `undefined` if not
      */
     const setCurrLinkColor = (route) => currPage === route ? "foreground" : undefined;
+
+    const handleLoginClick = () => {
+        if (loggedIn) {
+            setLoggedIn(false);
+        }
+        setCurrPage("/login");
+    };
 
     return (
         <Navbar isBordered maxWidth="full">
@@ -68,6 +77,17 @@ const Navigation = () => {
                 <NavbarItem>
                     <Link isBlock href="/about">About</Link>
                 </NavbarItem>
+                {loggedIn && (
+                    <NavbarItem isActive={currPage === "/dashboard"}>
+                        <Link 
+                            color={setCurrLinkColor("/dashboard")} 
+                            isBlock href="/dashboard" 
+                            onPress={() => setCurrPage("/dashboard")}
+                        >
+                            Sales Dashboard
+                        </Link>
+                    </NavbarItem>
+                )}
             </NavbarContent>
             <NavbarContent justify="end">
                 <NavbarItem isActive={currPage === "/login"}>
@@ -75,9 +95,9 @@ const Navigation = () => {
                         color={setCurrLinkColor("/login")}
                         isBlock
                         href="/login"
-                        onPress={() => setCurrPage("/login")}
+                        onPress={handleLoginClick}
                     >
-                        Admin Login
+                        {loggedIn ? "Logout" : "Admin Login"}
                     </Link>
                 </NavbarItem>
                 {/* Using /cart for now for the shopping cart route */}

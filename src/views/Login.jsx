@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "../components/CartContext";
 import { LoginContext } from "../components/LoginContext";
 import { Form } from "@heroui/form";
@@ -7,6 +8,7 @@ import { Button } from "@heroui/button";
 import { Tooltip } from "@heroui/tooltip";
 
 const Login = () => {
+    const navigate = useNavigate();
     const { cart, setCart } = useContext(CartContext);
     const { loggedIn, setLoggedIn } = useContext(LoginContext);
 
@@ -20,6 +22,8 @@ const Login = () => {
     const signIn = (e) => {
         e.preventDefault();
         setLoggedIn(true);
+        console.log("loggin in");
+        navigate("/");
     };
 
     return (
