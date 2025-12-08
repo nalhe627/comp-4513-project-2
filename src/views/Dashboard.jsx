@@ -9,6 +9,7 @@ import {
     TableCell 
 } from "@heroui/table";
 import { Link } from "@heroui/link";
+import { PieChart, Pie, Cell, Legend } from 'recharts';
 
 import { CATEGORIES } from "../constants/filters";
 
@@ -58,6 +59,30 @@ const Dashboard = ({ products, changeProduct }) => {
         }
 
         return categories;
+    };
+
+    const getSalesByGender = () => {
+        const genderData = [
+            { 
+                name: "Men", 
+                value: 0 
+            },
+            { 
+                name: "Women", 
+                value: 0 
+            }
+        ];
+
+        for (const product of products) {
+            if (product.gender === "mens") {
+                genderData[0].value += product.sales.total;
+            } else {
+                genderData[1].value += product.sales.total;
+            }
+        }
+        
+        console.log(genderData);
+        return genderData;
     };
 
     /**
@@ -157,9 +182,24 @@ const Dashboard = ({ products, changeProduct }) => {
                     </TableBody>
                 </Table>
             </section>
-            <section className="bg-gray-100 rounded-lg">
-                <p>Sales Number By Gender</p>
-                
+            <section className="bg-gray-100 rounded-lg flex flex-col items-center">
+                <p className="font-bold text-xl text-center mb-5">Sales Numbers By Gender</p>
+                <PieChart 
+                    style={{ 
+                        width: '80%', 
+                        height: '80%', 
+                        maxWidth: '500px', 
+                        maxHeight: '80vh', 
+                        aspectRatio: 1 
+                    }} 
+                    responsive
+                >
+                    <Pie data={getSalesByGender()} label isAnimationActive>
+                        <Cell key="cell-0" fill="#0496c7"></Cell>
+                        <Cell key="cell-1" fill="#fa003f"></Cell>
+                        <Legend />
+                    </Pie>
+                </PieChart>
             </section>
             <section className="bg-gray-100 rounded-lg">Pie Chart</section>
         </div>
