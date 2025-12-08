@@ -34,7 +34,26 @@ const App = () => {
   useEffect(() => {
     fetch("https://gist.githubusercontent.com/rconnolly/d37a491b50203d66d043c26f33dbd798/raw/37b5b68c527ddbe824eaed12073d266d5455432a/clothing-compact.json")
       .then(res => res.json())
-      .then(data => setProducts(data))
+      .then(data => {
+        const editedData = data.map((p) => {
+          const temp = { 
+            ...p,
+            domesticGross: p.sales.domestic * p.price,
+            internationalGross: p.sales.international * p.price,
+            totalGross: p.sales.total * p.price,
+            domesticCost: p.sales.domestic * p.cost,
+            internationalCost: p.sales.international * p.cost,
+            totalCost: p.sales.total * p.cost,
+          }
+
+          temp.domesticProfit = temp.domesticGross - temp.domesticCost;
+          temp.internationalProfit = temp.internationalGross - temp.internationalCost;
+          temp.totalProfit = temp.totalGross - temp.totalCost;
+
+          return temp;
+        })
+        setProducts(editedData);
+      })
       .catch((err) => console.error("Error fetching data: ", err));
   }, []);
   

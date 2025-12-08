@@ -30,9 +30,7 @@ const Dashboard = ({ products, changeProduct }) => {
      * @returns {Object[]} An array of the top 10 products with the highest profit
      */
     const getTop10Profitable = () => {
-        return products
-            .toSorted((a, b) => (b.sales.total - b.cost) - (a.sales.total - a.cost))
-            .slice(0, 10);
+        return products.toSorted((a, b) => b.totalProfit - a.totalProfit).slice(0, 10);
     };
 
     /**
@@ -53,7 +51,7 @@ const Dashboard = ({ products, changeProduct }) => {
             for (const category of categories) {
                 if (category.name === product.category) {
                     category.sales += product.sales.total;
-                    category.profit += product.sales.total - product.cost;
+                    category.profit += product.totalProfit;
                     break;
                 }
             }
@@ -81,7 +79,7 @@ const Dashboard = ({ products, changeProduct }) => {
                         <TableColumn>Product</TableColumn>
                         <TableColumn>Gender</TableColumn>
                         <TableColumn>Category</TableColumn>
-                        <TableColumn>Total Sales ($)</TableColumn>
+                        <TableColumn>Total Sales</TableColumn>
                     </TableHeader>
                     <TableBody items={getTop10Selling()}>
                         {(product) => (
@@ -113,7 +111,7 @@ const Dashboard = ({ products, changeProduct }) => {
                         <TableColumn>Product</TableColumn>
                         <TableColumn>Gender</TableColumn>
                         <TableColumn>Category</TableColumn>
-                        <TableColumn>Total Sales ($)</TableColumn>
+                        <TableColumn>Total Sales</TableColumn>
                         <TableColumn>Profit ($)</TableColumn>
                     </TableHeader>
                     <TableBody items={getTop10Profitable()}>
@@ -134,7 +132,7 @@ const Dashboard = ({ products, changeProduct }) => {
                                 <TableCell>{product.gender === "mens" ? "Mens" : "Womens"}</TableCell>
                                 <TableCell>{product.category}</TableCell>
                                 <TableCell>{product.sales.total}</TableCell>
-                                <TableCell>{product.sales.total - product.cost}</TableCell>
+                                <TableCell>{product.totalProfit}</TableCell>
                             </TableRow>
                         )}
                     </TableBody>
@@ -145,7 +143,7 @@ const Dashboard = ({ products, changeProduct }) => {
                 <Table aria-label="Sales + Profit by Category">
                     <TableHeader>
                         <TableColumn>Category</TableColumn>
-                        <TableColumn>Sales ($)</TableColumn>
+                        <TableColumn>Sales</TableColumn>
                         <TableColumn>Profit ($)</TableColumn>
                     </TableHeader>
                     <TableBody items={sortCategories()}>
@@ -159,7 +157,10 @@ const Dashboard = ({ products, changeProduct }) => {
                     </TableBody>
                 </Table>
             </section>
-            <section className="bg-gray-100 rounded-lg">Pie Chart</section>
+            <section className="bg-gray-100 rounded-lg">
+                <p>Sales Number By Gender</p>
+                
+            </section>
             <section className="bg-gray-100 rounded-lg">Pie Chart</section>
         </div>
     );
