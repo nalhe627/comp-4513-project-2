@@ -23,6 +23,17 @@ const Dashboard = ({ products, changeProduct }) => {
     };
 
     /**
+     * Gets the top 10 products with the highest profit, sorted by highest to lowest
+     * 
+     * @returns {Object[]} An array of the top 10 products with the highest profit
+     */
+    const getTop10Profitable = () => {
+        return products
+            .toSorted((a, b) => (b.sales.total - b.cost) - (a.sales.total - a.cost))
+            .slice(0, 10);
+    }
+
+    /**
      * Changes the selectedProduct state when the user clicks on the product.
      * 
      * @param {string} id String of the product's id
@@ -41,7 +52,7 @@ const Dashboard = ({ products, changeProduct }) => {
                         <TableColumn>Product</TableColumn>
                         <TableColumn>Gender</TableColumn>
                         <TableColumn>Category</TableColumn>
-                        <TableColumn>Total Sales</TableColumn>
+                        <TableColumn>Total Sales ($)</TableColumn>
                     </TableHeader>
                     <TableBody items={getTop10Selling()}>
                         {(product) => (
@@ -66,7 +77,40 @@ const Dashboard = ({ products, changeProduct }) => {
                     </TableBody>
                 </Table>
             </section>
-            <section className="bg-gray-100 rounded-lg">Top 10 Profitable Products</section>
+            <section className="rounded-lg">
+                <p className="font-bold text-xl text-center mb-5">Top 10 Profitable Products</p>
+                <Table aria-label="Top 10 Profitable Products">
+                    <TableHeader>
+                        <TableColumn>Product</TableColumn>
+                        <TableColumn>Gender</TableColumn>
+                        <TableColumn>Category</TableColumn>
+                        <TableColumn>Total Sales ($)</TableColumn>
+                        <TableColumn>Profit ($)</TableColumn>
+                    </TableHeader>
+                    <TableBody items={getTop10Profitable()}>
+                        {(product) => (
+                            <TableRow key={product.id}>
+                                <TableCell>
+                                    <Link 
+                                        href="/product" 
+                                        onPress={() => onProductClick(product.id)}
+                                        size="sm"
+                                        underline="hover"
+                                        color="foreground"
+                                        className="font-semibold"
+                                    >
+                                        {product.name}
+                                    </Link>
+                                </TableCell>
+                                <TableCell>{product.gender === "mens" ? "Mens" : "Womens"}</TableCell>
+                                <TableCell>{product.category}</TableCell>
+                                <TableCell>{product.sales.total}</TableCell>
+                                <TableCell>{product.sales.total - product.cost}</TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+            </section>
             <section className="bg-gray-100 row-span-2 rounded-lg">Sales + Profit by Category</section>
             <section className="bg-gray-100 rounded-lg">Pie Chart</section>
             <section className="bg-gray-100 rounded-lg">Pie Chart</section>
