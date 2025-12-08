@@ -10,29 +10,59 @@ import {
 } from "@heroui/table";
 import { Link } from "@heroui/link";
 
-const Dashboard = ({ products }) => {
+const Dashboard = ({ products, changeProduct }) => {
     const { cart, setCart } = useContext(CartContext);
+
+    /**
+     * Gets the top 10 products with the highest total sales, sorted by highest to lowest.
+     * 
+     * @returns {Object[]} An array of the top 10 products with the highest total sales
+     */
+    const getTop10Selling = () => {
+        return products.toSorted((a, b) => b.sales.total - a.sales.total).slice(0, 10);
+    };
+
+    /**
+     * Changes the selectedProduct state when the user clicks on the product.
+     * 
+     * @param {string} id String of the product's id
+     */
+    const onProductClick = (id) => {
+        const index = products.map((p) => p.id).indexOf(id);
+        changeProduct(products[index]);
+    }
 
     return (
         <div className="grid grid-cols-2 grid-rows-3 gap-5 border flex-grow m-5">
-            <section className="bg-gray-100 rounded-lg">
-                Top 10 Selling Products
-                <Table>
+            <section className="rounded-lg">
+                <p className="font-bold text-xl text-center mb-5">Top 10 Selling Products</p>
+                <Table aria-label="Top 10 Selling Products">
                     <TableHeader>
                         <TableColumn>Product</TableColumn>
                         <TableColumn>Gender</TableColumn>
                         <TableColumn>Category</TableColumn>
                         <TableColumn>Total Sales</TableColumn>
                     </TableHeader>
-                    <TableBody>
-                        <TableRow key={1}>
-                            <TableCell>
-                                <Link href="/product">Hat</Link>
-                            </TableCell>
-                            <TableCell>Mens</TableCell>
-                            <TableCell>Accessories</TableCell>
-                            <TableCell>500</TableCell>
-                        </TableRow>
+                    <TableBody items={getTop10Selling()}>
+                        {(product) => (
+                            <TableRow key={product.id}>
+                                <TableCell>
+                                    <Link 
+                                        href="/product" 
+                                        onPress={() => onProductClick(product.id)}
+                                        size="sm"
+                                        underline="hover"
+                                        color="foreground"
+                                        className="font-semibold"
+                                    >
+                                        {product.name}
+                                    </Link>
+                                </TableCell>
+                                <TableCell>{product.gender === "mens" ? "Mens" : "Womens"}</TableCell>
+                                <TableCell>{product.category}</TableCell>
+                                <TableCell>{product.sales.total}</TableCell>
+                            </TableRow>
+                        )}
                     </TableBody>
                 </Table>
             </section>
