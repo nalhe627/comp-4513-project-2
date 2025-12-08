@@ -14,6 +14,7 @@ import GetProducts from "./components/GetProducts";
 import CategoryGrid from "./components/CategoryGrid";
 import ProductList from "./components/ProductList";
 import SingleProduct from "./views/SingleProduct";
+
 const App = (props) => {
   // const { products } = GetProducts();
   const navigate = useNavigate()
@@ -25,12 +26,16 @@ const App = (props) => {
   const changeProduct = (index) => {
     setSelectedProduct(index);
   }
+  const getIndex = () => {
+    return selectedProduct;
+  }
 
   useEffect(() => {
     fetch("https://gist.githubusercontent.com/rconnolly/d37a491b50203d66d043c26f33dbd798/raw/37b5b68c527ddbe824eaed12073d266d5455432a/clothing-compact.json")
       .then(res => res.json())
       .then(data => setProducts(data));
   }, []);
+  
   
   return (
     <HeroUIProvider navigate={navigate} useHref={useHref}>
@@ -41,7 +46,8 @@ const App = (props) => {
           <CategoryGrid data={products} gender={"mens"}/>
           <ProductList products={products} change={changeProduct} />
           {selectedProduct !== null && (
-            <SingleProduct product={products[selectedProduct]} />
+            <SingleProduct product={products[selectedProduct]} products={products} change={changeProduct} />
+            
           )}
           {/* <ShoppingCart /> */}
           <Footer />

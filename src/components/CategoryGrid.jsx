@@ -15,8 +15,6 @@ import swimwear from "../assets/swimwear.jpg";
 
 const CategoryGrid = ({ data, gender }) => {
     const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
 
     const categoryImages = {
         Tops: shirt,
@@ -38,8 +36,6 @@ const CategoryGrid = ({ data, gender }) => {
         const uniqueCategories = [...new Set(filtergender.map(item => item.category))];
         setCategories(uniqueCategories);
     }, [data, gender]);
-    if (loading) { return <p>Loading categories...</p>; }
-    if (error) { return <p>Error loading categories: {error}</p>; }
 
     return (
         <div className="gap-2 grid grid-cols-4 sm:grid-cols-4 grid-rows-3 m-12">
