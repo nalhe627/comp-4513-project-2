@@ -23,6 +23,7 @@ import swimwear from "../assets/swimwear.jpg";
 import ShippingDrop from "../components/ShippingDrop";
 import CountryDrop from "../components/CountryDrop";
 import CartSummary from "../components/CartSummary";
+import { Button } from "@heroui/button";
 
 const ShoppingCart = () => {
     const { cart, removeFromCart, clearCart } = useContext(CartContext);
@@ -99,10 +100,12 @@ const ShoppingCart = () => {
                     </div>
 
                     {/* Dropdowns */}
-                    <div className="flex flex-col md:flex-row gap-4">
-                        <ShippingDrop onChange={setSelectedShipping} />
-                        <CountryDrop onChange={setSelectedCountry} />
-                        <button onClick={clearCart}className="bg-red-400 text-white w-full py-2 rounded cursor-pointer">Clear Cart</button>
+                    <div className="flex justify-between md:flex-row gap-4">
+                        <div className="flex gap-5">
+                            <ShippingDrop onChange={setSelectedShipping} />
+                            <CountryDrop onChange={setSelectedCountry} />
+                        </div>
+                        <Button onPress={clearCart} color="danger">Clear Cart</Button>
                     </div>
                 </div>
 
