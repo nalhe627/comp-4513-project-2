@@ -112,6 +112,7 @@ const ShoppingCart = () => {
                         cart={cart} 
                         selectedCountry={selectedCountry} 
                         selectedShipping={selectedShipping}
+                        clearCart={clearCart}
                     />
                 </div>
 

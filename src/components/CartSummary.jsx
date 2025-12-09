@@ -1,5 +1,5 @@
 
-const CartSummary = ({ cart, selectedCountry, selectedShipping }) => {
+const CartSummary = ({ cart, selectedCountry, selectedShipping, clearCart }) => {
   
   const merchandiseTotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -56,7 +56,7 @@ const CartSummary = ({ cart, selectedCountry, selectedShipping }) => {
         <span>${total.toFixed(2)}</span>
       </div>
 
-      <button className="bg-blue-600 text-white w-full mt-4 py-2 rounded cursor-pointer">
+      <button className="bg-blue-600 text-white w-full mt-4 py-2 rounded cursor-pointer" onClick={clearCart}>
         Checkout
       </button>
     </div>
