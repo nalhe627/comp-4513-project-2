@@ -13,6 +13,20 @@ import { PieChart, Pie, Cell, Legend } from 'recharts';
 
 import { CATEGORIES } from "../constants/filters";
 
+const COLORS = [
+    "#3772ff",
+    "#df2935",
+    "#cd3ea9ff",
+    "#675dd7ff",
+    "#76a441ff",
+    "#393E41",
+    "#B287A3",
+    "#19c799ff",
+    "#E65F5C",
+    "#0091AD",
+    "#fd8f58ff"
+];
+
 const Dashboard = ({ products, changeProduct }) => {
     const { cart, setCart } = useContext(CartContext);
 
@@ -61,6 +75,11 @@ const Dashboard = ({ products, changeProduct }) => {
         return categories;
     };
 
+    /**
+     * Gets the total sales for each gender.
+     * 
+     * @returns {Object[]} An array of two objects (men & women) with total sales for each
+     */
     const getSalesByGender = () => {
         const genderData = [
             { 
@@ -81,8 +100,26 @@ const Dashboard = ({ products, changeProduct }) => {
             }
         }
         
-        console.log(genderData);
         return genderData;
+    };
+
+
+    const getSalesByCategory = () => {
+        const categorySales = CATEGORIES.map((categ) => ({
+            name: categ,
+            value: 0,
+        }))
+
+        for (const product of products) {
+            for (const category of categorySales) {
+                if (category.name === product.category) {
+                    category.value += product.sales.total;
+                    break;
+                }
+            }
+        }
+
+        return categorySales;
     };
 
     /**
@@ -201,7 +238,26 @@ const Dashboard = ({ products, changeProduct }) => {
                     </Pie>
                 </PieChart>
             </section>
-            <section className="bg-gray-100 rounded-lg">Pie Chart</section>
+            <section className="bg-gray-100 rounded-lg flex flex-col items-center">
+                <p className="font-bold text-xl text-center mb-5">Sales Numbers By Category</p>
+                <PieChart 
+                    style={{ 
+                        width: '80%', 
+                        height: '80%', 
+                        maxWidth: '500px', 
+                        maxHeight: '80vh', 
+                        aspectRatio: 1 
+                    }} 
+                    responsive
+                >
+                    <Pie data={getSalesByCategory()} label isAnimationActive>
+                        {getSalesByCategory().map((category, i) => (
+                            <Cell key={`cell-${i}`} fill={COLORS[i]}></Cell>
+                        ))}
+                        <Legend />
+                    </Pie>
+                </PieChart>
+            </section>
         </div>
     );
 }
