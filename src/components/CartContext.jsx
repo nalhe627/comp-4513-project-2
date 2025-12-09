@@ -2,37 +2,58 @@ import { createContext, useState } from "react";
 
 export const CartContext = createContext();
 
-export const CartContextProvider = (props) => {
-  const [cart, setCart] = useState([]);
+export const CartContextProvider = ({ children }) => {
+
+  /**
+   * Retrieves the cart from localStorage.
+   * 
+   * @returns {Object[]} an array of products in cart (or an empty array)
+   */
+  const retrieveCart = () => {
+    if (localStorage.getItem("cart")) {
+      return JSON.parse(localStorage.getItem("cart"));
+    }
+    return [];
+  };
+
+  const [cart, setCart] = useState(retrieveCart());
+  
   const addToCart = (product) => {
-    setCart((prev) => {
-      
-      const existing = prev.find(p =>
-        p.id === product.id &&
-        p.selectedSize === product.selectedSize &&
-        p.selectedColor?.name === product.selectedColor?.name
+    const existing = cart.find((p) =>
+      p.id === product.id &&
+      p.selectedSize === product.selectedSize &&
+      p.selectedColor?.name === product.selectedColor?.name
+    );
+
+    if (existing) {
+      return cart.map((p) =>
+        p === existing ? { ...p, quantity: p.quantity + product.quantity } : p
       );
+    }
 
-      if (existing) {
-        
-        return prev.map((p) =>
-          p === existing ? { ...p, quantity: p.quantity + product.quantity } : p);
-      }
-
-      
-      return [...prev, product];
-    });
-  }
+    const newCart = [...cart, product];
+    
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    setCart(newCart);
+  };
 
   const removeFromCart = (productId) => {
-    setCart(remove => remove.filter(item => item.id !== productId));
-  }
+    const newCart = cart.filter((item) => item.id !== productId);
+
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    setCart(newCart);
+  };
+
   const clearCart = () => {
+    localStorage.removeItem("cart");
     setCart([]);
   };
+  
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, setCart, clearCart }}>
-      {props.children}
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, setCart, clearCart }}
+    >
+      {children}
     </CartContext.Provider>
   );
 };
