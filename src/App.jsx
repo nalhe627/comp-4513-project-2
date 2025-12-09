@@ -71,9 +71,9 @@ const App = () => {
               <SingleProduct product={products[selectedProduct]} />
             )} */}
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home products={products} change={changeProduct}/>} />
                 <Route path="/browse" element={<Browse products={products} changeProduct={changeProduct} />} />
-                <Route path="/product" element={<SingleProduct product={selectedProduct} />} />
+                <Route path="/product" element={<SingleProduct product={selectedProduct} products={products} change={changeProduct} />} />
                 <Route path="/dashboard" element={<Dashboard products={products} changeProduct={changeProduct} />} />
                 <Route path="/login" element={<Login />} />
               </Routes>
