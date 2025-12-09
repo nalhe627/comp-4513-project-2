@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { CartContext } from "../components/CartContext";
 import { addToast } from "@heroui/toast";
 import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
 
 const CartSummary = ({ selectedCountry, selectedShipping }) => {
   const { cart, clearCart } = useContext(CartContext);
@@ -70,7 +71,9 @@ const CartSummary = ({ selectedCountry, selectedShipping }) => {
         <span>${total.toFixed(2)}</span>
       </div>
 
-      <Button 
+      <Button
+        as={Link}
+        href="/" 
         onPress={handleCheckout}
         className="mt-5"
         color="primary"
