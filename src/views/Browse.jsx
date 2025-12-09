@@ -133,7 +133,6 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
         <section className="flex p-5 m-5 items-start flex-grow rounded-lg gap-4">
 
             {/* Filter section */}
-            {/* TODO: make the fitler a separate component */}
             <Filter 
                 filters={filters} 
                 filterArr={filterArr} 

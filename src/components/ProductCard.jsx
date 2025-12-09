@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import { Image } from "@heroui/image";
+import {  } from "@heroui/toast";
 import { CartContext } from "./CartContext";
 import placeholderImg from '../assets/shirt.jpg';
 
