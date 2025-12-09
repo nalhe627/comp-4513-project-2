@@ -17,25 +17,21 @@ import intimates from "../assets/intimates.jpg";
 import swimwear from "../assets/swimwear.jpg";
 
 const ProductCard = ({ product, onProductClick }) => {
-    const { cart, setCart } = useContext(CartContext);
+    const { cart, setCart, addToCart } = useContext(CartContext);
 
-    const addCart = (e) => {
+    const handleCartClick = (e) => {
         // Prevent the click from also navigating to the product view
         e.preventDefault();
 
-        const existing = cart.find((c) => c.id === product.id);
-        if (!existing) {
-            const newCart = [...cart, { 
-                ...product,
-                selectedSize: product.sizes[0],
-                selectedColor: product.color[0],
-                quantity: 1
-            }];
-            setCart(newCart);
-        }
+        addToCart({
+            ...product,
+            selectedSize: product.sizes[0],
+            selectedColor: product.color[0],
+            quantity: 1
+        })
     };
 
-    const handleProductClick = (e) => {
+    const handleProductClick = () => {
         onProductClick();
     };
 
@@ -62,7 +58,7 @@ const ProductCard = ({ product, onProductClick }) => {
                 <div>
                     <Image src={getCategoryImage(product.category)} width={200} />
                     <Button 
-                        onClick={addCart} 
+                        onClick={handleCartClick} 
                         color="primary" 
                         variant="ghost"
                         className="z-10 absolute right-11 top-61 text-lg font-medium"
@@ -83,7 +79,6 @@ const ProductCard = ({ product, onProductClick }) => {
                     <h3 className="font-medium truncate text-black">{product.name}</h3>
                     <p className="text-sm text-gray-600">${product.price}</p>
                 </div>
-                {/* <Button onClick={addCart} color="primary" variant="ghost" className="rounded">Add to Cart</Button> */}
             </Link>
         </li>
     );
