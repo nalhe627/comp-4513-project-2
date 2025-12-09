@@ -19,7 +19,7 @@ const Browse = ({ products, changeProduct }) => {
     // Not sure if filters should be an array or object (using object for now)
     const [filters, setFilters] = useState({ 
         gender: searchParams.get("gender"), 
-        categories: searchParams.get("category") 
+        categories: searchParams.get("category") || []
     });
     const [filterArr, setFilterArr] = useState([]);
 
