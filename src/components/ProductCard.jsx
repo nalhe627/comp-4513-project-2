@@ -27,9 +27,9 @@ const ProductCard = ({ product, onProductClick }) => {
         if (!existing) {
             const newCart = [...cart, { 
                 ...product,
-                selectedSize: product.sizes[0], // Default to first available size
-                selectedColor: product.color[0], // Default to first available color
-                quantity: 1 // Default quantity
+                selectedSize: product.sizes[0],
+                selectedColor: product.color[0],
+                quantity: 1
             }];
             setCart(newCart);
         }
