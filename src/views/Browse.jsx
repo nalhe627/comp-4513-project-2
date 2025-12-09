@@ -143,8 +143,7 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
                 return currProducts.toSorted((a, b) => a.price - b.price);
             case "category":
                 console.log("sorting by category");
-                // TODO: figure out how to sort by category later
-                return currProducts.toSorted();
+                return currProducts.toSorted((a, b) => a.category < b.category ? -1 : 1);
         }
     }
     
