@@ -54,14 +54,14 @@ const ProductCard = ({ product, onProductClick }) => {
 
     return (
         <li className="rounded-md shadow-sm cursor-pointer hover:shadow-md w-fit">
-            <Link href="/product" className="p-5 px-8 flex flex-col gap-3" onPress={handleProductClick}>
+            <Link href="/product" className="p-5 px-8 flex flex-col justify-between gap-3 h-full" onPress={handleProductClick}>
                 <div>
-                    <Image src={getCategoryImage(product.category)} width={200} />
+                    <Image src={getCategoryImage(product.category)} height={250} />
                     <Button 
                         onClick={handleCartClick} 
                         color="primary" 
                         variant="ghost"
-                        className="z-10 absolute right-11 top-61 text-lg font-medium"
+                        className="z-10 absolute right-11 top-57 text-lg font-medium"
                         isIconOnly
                         size="sm"
                     >
