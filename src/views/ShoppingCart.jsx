@@ -8,6 +8,18 @@ import {
     TableRow,
     TableCell
 } from "@heroui/table";
+import shirt from "../assets/shirt.jpg";
+import bottoms from "../assets/bottoms.jpg";
+import dresses from "../assets/dresses.jpg";
+import outerwear from "../assets/outerwear.jpg";
+import jumpsuits from "../assets/jumpsuits.jpg";
+import sweaters from "../assets/sweaters.jpg";
+import accessories from "../assets/accessories.jpg";
+import loungewear from "../assets/loungewear.jpg";
+import shoes from "../assets/shoes.jpg";
+import intimates from "../assets/intimates.jpg";
+import swimwear from "../assets/swimwear.jpg";
+
 import ShippingDrop from "../components/ShippingDrop";
 import CountryDrop from "../components/CountryDrop";
 import CartSummary from "../components/CartSummary";
@@ -17,6 +29,23 @@ const ShoppingCart = () => {
 
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [selectedShipping, setSelectedShipping] = useState(null);
+
+    const getCategoryImage = (category) => {
+        const categoryImages = {
+            Tops: shirt,
+            Bottoms: bottoms,
+            Dresses: dresses,
+            Outerwear: outerwear,
+            Jumpsuits: jumpsuits,
+            Sweaters: sweaters,
+            Accessories: accessories,
+            Loungewear: loungewear,
+            Shoes: shoes,
+            Intimates: intimates,
+            Swimwear: swimwear,
+        }
+        return categoryImages[category];
+    }
 
     return (
         <div className="max-w-6xl mx-auto p-6">
@@ -44,8 +73,8 @@ const ShoppingCart = () => {
                                     <TableRow key={c.id}>
                                         <TableCell>
                                             <img
-                                                src={c.image}
-                                                alt={c.title}
+                                                src={getCategoryImage(c.category)}
+                                                alt={c.name}
                                                 className="w-16 h-16 rounded-md border"
                                             />
                                         </TableCell>

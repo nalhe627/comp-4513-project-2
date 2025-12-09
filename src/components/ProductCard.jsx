@@ -4,7 +4,17 @@ import { Link } from "@heroui/link";
 import { Image } from "@heroui/image";
 import {  } from "@heroui/toast";
 import { CartContext } from "./CartContext";
-import placeholderImg from '../assets/shirt.jpg';
+import shirt from "../assets/shirt.jpg";
+import bottoms from "../assets/bottoms.jpg";
+import dresses from "../assets/dresses.jpg";
+import outerwear from "../assets/outerwear.jpg";
+import jumpsuits from "../assets/jumpsuits.jpg";
+import sweaters from "../assets/sweaters.jpg";
+import accessories from "../assets/accessories.jpg";
+import loungewear from "../assets/loungewear.jpg";
+import shoes from "../assets/shoes.jpg";
+import intimates from "../assets/intimates.jpg";
+import swimwear from "../assets/swimwear.jpg";
 
 const ProductCard = ({ product, onProductClick }) => {
     const { cart, setCart } = useContext(CartContext);
@@ -20,11 +30,32 @@ const ProductCard = ({ product, onProductClick }) => {
         }
     };
 
+    const handleProductClick = (e) => {
+        onProductClick();
+    };
+
+    const getCategoryImage = (category) => {
+            const categoryImages = {
+                Tops: shirt,
+                Bottoms: bottoms,
+                Dresses: dresses,
+                Outerwear: outerwear,
+                Jumpsuits: jumpsuits,
+                Sweaters: sweaters,
+                Accessories: accessories,
+                Loungewear: loungewear,
+                Shoes: shoes,
+                Intimates: intimates,
+                Swimwear: swimwear,
+            }
+            return categoryImages[category];
+        }
+
     return (
         <li className="rounded-md shadow-sm cursor-pointer hover:shadow-md w-fit">
-            <Link href="/product" className="p-5 px-8 flex flex-col gap-3" onPress={onProductClick}>
+            <Link href="/product" className="p-5 px-8 flex flex-col gap-3" onPress={handleProductClick}>
                 <div>
-                    <Image src={placeholderImg} width={200} />
+                    <Image src={getCategoryImage(product.category)} width={200} />
                     <Button 
                         onClick={addCart} 
                         color="primary" 

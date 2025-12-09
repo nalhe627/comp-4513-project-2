@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { CartContext } from "../components/CartContext";
 import HeroSection from "../components/HeroSection";
 import MensHero from "../assets/mens-hero.jpg";
+import CategoryGrid from "../components/CategoryGrid";
 
 const Mens = ({products}) => {
     const { cart, setCart } = useContext(CartContext);

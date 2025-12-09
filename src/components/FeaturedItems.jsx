@@ -1,8 +1,8 @@
 import { Card, CardBody, CardFooter } from "@heroui/card";
 import { Image } from "@heroui/image";
 const FeaturedItems = ({ products, change, image }) => {
-    const handler = (ind) => {
-        change(ind);
+    const handler = (product) => {
+        change(product);
     };
     return (
         <div className="mt-12 mb-10 px-4 col-span-full">
@@ -12,7 +12,7 @@ const FeaturedItems = ({ products, change, image }) => {
                 {products.map((product, index) => (
                     <div
                         key={index}
-                        onClick={() => handler(product.originalIndex)}
+                        onClick={() => handler(product)}
                         className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer overflow-hidden border border-gray-200"
                     >
                         <div className="w-full h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
