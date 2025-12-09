@@ -133,131 +133,134 @@ const Dashboard = ({ products, changeProduct }) => {
     }
 
     return (
-        <div className="grid grid-cols-2 grid-rows-3 gap-5 border flex-grow m-5">
-            <section className="rounded-lg">
-                <p className="font-bold text-xl text-center mb-5">Top 10 Selling Products</p>
-                <Table aria-label="Top 10 Selling Products">
-                    <TableHeader>
-                        <TableColumn>Product</TableColumn>
-                        <TableColumn>Gender</TableColumn>
-                        <TableColumn>Category</TableColumn>
-                        <TableColumn>Total Sales</TableColumn>
-                    </TableHeader>
-                    <TableBody items={getTop10Selling()}>
-                        {(product) => (
-                            <TableRow key={product.id}>
-                                <TableCell>
-                                    <Link 
-                                        href="/product" 
-                                        onPress={() => onProductClick(product.id)}
-                                        size="sm"
-                                        underline="hover"
-                                        color="foreground"
-                                        className="font-semibold"
-                                    >
-                                        {product.name}
-                                    </Link>
-                                </TableCell>
-                                <TableCell>{product.gender === "mens" ? "Mens" : "Womens"}</TableCell>
-                                <TableCell>{product.category}</TableCell>
-                                <TableCell>{product.sales.total}</TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </section>
-            <section className="rounded-lg">
-                <p className="font-bold text-xl text-center mb-5">Top 10 Profitable Products</p>
-                <Table aria-label="Top 10 Profitable Products">
-                    <TableHeader>
-                        <TableColumn>Product</TableColumn>
-                        <TableColumn>Gender</TableColumn>
-                        <TableColumn>Category</TableColumn>
-                        <TableColumn>Total Sales</TableColumn>
-                        <TableColumn>Profit ($)</TableColumn>
-                    </TableHeader>
-                    <TableBody items={getTop10Profitable()}>
-                        {(product) => (
-                            <TableRow key={product.id}>
-                                <TableCell>
-                                    <Link 
-                                        href="/product" 
-                                        onPress={() => onProductClick(product.id)}
-                                        size="sm"
-                                        underline="hover"
-                                        color="foreground"
-                                        className="font-semibold"
-                                    >
-                                        {product.name}
-                                    </Link>
-                                </TableCell>
-                                <TableCell>{product.gender === "mens" ? "Mens" : "Womens"}</TableCell>
-                                <TableCell>{product.category}</TableCell>
-                                <TableCell>{product.sales.total}</TableCell>
-                                <TableCell>{product.totalProfit}</TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </section>
-            <section className="row-span-2 rounded-lg">
-                <p className="font-bold text-xl text-center mb-5">Sales + Profit by Category</p>
-                <Table aria-label="Sales + Profit by Category">
-                    <TableHeader>
-                        <TableColumn>Category</TableColumn>
-                        <TableColumn>Sales</TableColumn>
-                        <TableColumn>Profit ($)</TableColumn>
-                    </TableHeader>
-                    <TableBody items={sortCategories()}>
-                        {(category) => (
-                            <TableRow key={category.name}>
-                                <TableCell>{category.name}</TableCell>
-                                <TableCell>{category.sales}</TableCell>
-                                <TableCell>{category.profit}</TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </section>
-            <section className="bg-gray-100 rounded-lg flex flex-col items-center">
-                <p className="font-bold text-xl text-center mb-5">Sales Numbers By Gender</p>
-                <PieChart 
-                    style={{ 
-                        width: '80%', 
-                        height: '80%', 
-                        maxWidth: '500px', 
-                        maxHeight: '80vh', 
-                        aspectRatio: 1 
-                    }} 
-                    responsive
-                >
-                    <Pie data={getSalesByGender()} label isAnimationActive>
-                        <Cell key="cell-0" fill="#0496c7"></Cell>
-                        <Cell key="cell-1" fill="#fa003f"></Cell>
-                        <Legend />
-                    </Pie>
-                </PieChart>
-            </section>
-            <section className="bg-gray-100 rounded-lg flex flex-col items-center">
-                <p className="font-bold text-xl text-center mb-5">Sales Numbers By Category</p>
-                <PieChart 
-                    style={{ 
-                        width: '80%', 
-                        height: '80%', 
-                        maxWidth: '500px', 
-                        maxHeight: '80vh', 
-                        aspectRatio: 1 
-                    }} 
-                    responsive
-                >
-                    <Pie data={getSalesByCategory()} label isAnimationActive>
-                        {getSalesByCategory().map((category, i) => (
-                            <Cell key={`cell-${i}`} fill={COLORS[i]}></Cell>
-                        ))}
-                        <Legend />
-                    </Pie>
-                </PieChart>
-            </section>
+        <div className="py-10">
+            <p className="font-bold text-4xl text-center mb-10">Sales Dashboard</p>
+            <div className="grid grid-cols-2 grid-rows-3 gap-x-10 flex-grow m-5">
+                <section className="rounded-xl">
+                    <p className="font-bold text-xl text-center mb-5">Top 10 Selling Products</p>
+                    <Table aria-label="Top 10 Selling Products">
+                        <TableHeader>
+                            <TableColumn>Product</TableColumn>
+                            <TableColumn>Gender</TableColumn>
+                            <TableColumn>Category</TableColumn>
+                            <TableColumn>Total Sales</TableColumn>
+                        </TableHeader>
+                        <TableBody items={getTop10Selling()}>
+                            {(product) => (
+                                <TableRow key={product.id}>
+                                    <TableCell>
+                                        <Link 
+                                            href="/product" 
+                                            onPress={() => onProductClick(product.id)}
+                                            size="sm"
+                                            underline="hover"
+                                            color="foreground"
+                                            className="font-semibold"
+                                        >
+                                            {product.name}
+                                        </Link>
+                                    </TableCell>
+                                    <TableCell>{product.gender === "mens" ? "Mens" : "Womens"}</TableCell>
+                                    <TableCell>{product.category}</TableCell>
+                                    <TableCell>{product.sales.total}</TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </section>
+                <section className="rounded-xl">
+                    <p className="font-bold text-xl text-center mb-5">Top 10 Profitable Products</p>
+                    <Table aria-label="Top 10 Profitable Products">
+                        <TableHeader>
+                            <TableColumn>Product</TableColumn>
+                            <TableColumn>Gender</TableColumn>
+                            <TableColumn>Category</TableColumn>
+                            <TableColumn>Total Sales</TableColumn>
+                            <TableColumn>Profit ($)</TableColumn>
+                        </TableHeader>
+                        <TableBody items={getTop10Profitable()}>
+                            {(product) => (
+                                <TableRow key={product.id}>
+                                    <TableCell>
+                                        <Link 
+                                            href="/product" 
+                                            onPress={() => onProductClick(product.id)}
+                                            size="sm"
+                                            underline="hover"
+                                            color="foreground"
+                                            className="font-semibold"
+                                        >
+                                            {product.name}
+                                        </Link>
+                                    </TableCell>
+                                    <TableCell>{product.gender === "mens" ? "Mens" : "Womens"}</TableCell>
+                                    <TableCell>{product.category}</TableCell>
+                                    <TableCell>{product.sales.total}</TableCell>
+                                    <TableCell>{product.totalProfit}</TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </section>
+                <section className="col-span-2 rounded-xl">
+                    <p className="font-bold text-xl text-center mb-5">Sales + Profit by Category</p>
+                    <Table aria-label="Sales + Profit by Category">
+                        <TableHeader>
+                            <TableColumn>Category</TableColumn>
+                            <TableColumn>Sales</TableColumn>
+                            <TableColumn>Profit ($)</TableColumn>
+                        </TableHeader>
+                        <TableBody items={sortCategories()}>
+                            {(category) => (
+                                <TableRow key={category.name}>
+                                    <TableCell>{category.name}</TableCell>
+                                    <TableCell>{category.sales}</TableCell>
+                                    <TableCell>{category.profit}</TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </section>
+                <section className="border border-gray-200 rounded-xl shadow-sm flex flex-col items-center">
+                    <p className="font-bold text-xl text-center my-5">Sales Numbers By Gender</p>
+                    <PieChart 
+                        style={{ 
+                            width: '80%', 
+                            height: '80%', 
+                            maxWidth: '500px', 
+                            maxHeight: '80vh', 
+                            aspectRatio: 1 
+                        }} 
+                        responsive
+                    >
+                        <Pie data={getSalesByGender()} label isAnimationActive>
+                            <Cell key="cell-0" fill="#0496c7"></Cell>
+                            <Cell key="cell-1" fill="#fa003f"></Cell>
+                            <Legend />
+                        </Pie>
+                    </PieChart>
+                </section>
+                <section className="border border-gray-200 rounded-xl shadow-sm flex flex-col items-center">
+                    <p className="font-bold text-xl text-center my-5">Sales Numbers By Category</p>
+                    <PieChart 
+                        style={{ 
+                            width: '80%', 
+                            height: '80%', 
+                            maxWidth: '500px', 
+                            maxHeight: '80vh', 
+                            aspectRatio: 1 
+                        }} 
+                        responsive
+                    >
+                        <Pie data={getSalesByCategory()} label isAnimationActive>
+                            {getSalesByCategory().map((category, i) => (
+                                <Cell key={`cell-${i}`} fill={COLORS[i]}></Cell>
+                            ))}
+                            <Legend />
+                        </Pie>
+                    </PieChart>
+                </section>
+            </div>
         </div>
     );
 }
