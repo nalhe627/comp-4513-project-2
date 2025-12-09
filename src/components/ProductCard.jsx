@@ -25,7 +25,12 @@ const ProductCard = ({ product, onProductClick }) => {
 
         const existing = cart.find((c) => c.id === product.id);
         if (!existing) {
-            const newCart = [...cart, { ...product }];
+            const newCart = [...cart, { 
+                ...product,
+                selectedSize: product.sizes[0], // Default to first available size
+                selectedColor: product.color[0], // Default to first available color
+                quantity: 1 // Default quantity
+            }];
             setCart(newCart);
         }
     };
