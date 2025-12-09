@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import shirt from "../assets/shirt.jpg";
 import bottoms from "../assets/bottoms.jpg";
 import dresses from "../assets/dresses.jpg";
@@ -11,8 +12,11 @@ import intimates from "../assets/intimates.jpg";
 import swimwear from "../assets/swimwear.jpg";
 
 const FeaturedItemsHome = ({ products, change }) => {
+    const navigate = useNavigate();
+    
     const handler = (product) => {
         change(product);
+        navigate("/product");
     };
     const categoryImages = {
         Tops: shirt,
