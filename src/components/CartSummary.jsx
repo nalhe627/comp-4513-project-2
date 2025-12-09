@@ -65,7 +65,10 @@ const CartSummary = ({ cart, selectedCountry, selectedShipping, clearCart }) => 
         <span>${total.toFixed(2)}</span>
       </div>
 
-      <button className="bg-blue-600 text-white w-full mt-4 py-2 rounded cursor-pointer" onClick={handleCheckout}>
+      <button 
+        className="bg-blue-600 text-white w-full mt-4 py-2 rounded cursor-pointer" 
+        onClick={handleCheckout}
+      >
         Checkout
       </button>
     </div>

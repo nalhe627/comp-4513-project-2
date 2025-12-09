@@ -1,11 +1,12 @@
 import React from "react";
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@heroui/react";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@heroui/react";
 
 const ShippingDrop = ({ onChange }) => {
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
 
   const handleSelect = (keys) => {
     setSelectedKeys(keys);
+    
     const value = Array.from(keys)[0];
     onChange(value);
     console.log("Selected shipping:", value);

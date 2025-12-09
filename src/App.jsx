@@ -10,18 +10,12 @@ import ShoppingCart from "./views/ShoppingCart";
 import Home from "./views/Home";
 import Browse from "./views/Browse";
 import Login from "./views/Login";
-import ProductFilters from "./components/ProductFilters";
-import HeroSection from "./components/HeroSection";
-import mensHero from "./assets/mens-hero.jpg";
-import GetProducts from "./components/GetProducts";
-import CategoryGrid from "./components/CategoryGrid";
-import ProductList from "./components/ProductList";
 import SingleProduct from "./views/SingleProduct";
 import Dashboard from "./views/Dashboard";
 import Mens from "./views/Mens";
 import Womens from "./views/Womens";
+
 const App = () => {
-  // const { products } = GetProducts();
   const navigate = useNavigate()
   const [filter, setFilter] = useState();
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -29,7 +23,6 @@ const App = () => {
   const [products, setProducts] = useState([]);
 
   const changeProduct = (product) => {
-    // setSelectedProduct(index);
     setSelectedProduct(product);
   }
 

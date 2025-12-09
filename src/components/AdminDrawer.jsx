@@ -1,6 +1,14 @@
 import { useContext } from "react";
 import { CartContext } from "../components/CartContext";
-import { Drawer, DrawerContent, DrawerHeader, DrawerBody, DrawerFooter, Button, useDisclosure, } from "@heroui/react";
+import { 
+  Drawer, 
+  DrawerContent, 
+  DrawerHeader, 
+  DrawerBody, 
+  DrawerFooter, 
+  Button, 
+  useDisclosure, 
+} from "@heroui/react";
 import {
   Table,
   TableHeader,

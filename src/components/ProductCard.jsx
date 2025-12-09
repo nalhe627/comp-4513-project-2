@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import { Image } from "@heroui/image";
-import {  } from "@heroui/toast";
 import { CartContext } from "./CartContext";
 import shirt from "../assets/shirt.jpg";
 import bottoms from "../assets/bottoms.jpg";
@@ -17,7 +16,7 @@ import intimates from "../assets/intimates.jpg";
 import swimwear from "../assets/swimwear.jpg";
 
 const ProductCard = ({ product, onProductClick }) => {
-    const { cart, setCart, addToCart } = useContext(CartContext);
+    const { addToCart } = useContext(CartContext);
 
     const handleCartClick = (e) => {
         // Prevent the click from also navigating to the product view
@@ -54,7 +53,11 @@ const ProductCard = ({ product, onProductClick }) => {
 
     return (
         <li className="rounded-md shadow-sm cursor-pointer hover:shadow-md w-fit">
-            <Link href="/product" className="p-5 px-8 flex flex-col justify-between gap-3 h-full" onPress={handleProductClick}>
+            <Link 
+                href="/product" 
+                className="p-5 px-8 flex flex-col justify-between gap-3 h-full" 
+                onPress={handleProductClick}
+            >
                 <div>
                     <Image src={getCategoryImage(product.category)} height={250} />
                     <Button 

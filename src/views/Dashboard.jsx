@@ -1,5 +1,3 @@
-import { useState, useContext } from "react";
-import { CartContext } from "../components/CartContext";
 import { 
     Table,
     TableHeader,
@@ -28,8 +26,6 @@ const COLORS = [
 ];
 
 const Dashboard = ({ products, changeProduct }) => {
-    const { cart, setCart } = useContext(CartContext);
-
     /**
      * Gets the top 10 products with the highest total sales, sorted by highest to lowest.
      * 

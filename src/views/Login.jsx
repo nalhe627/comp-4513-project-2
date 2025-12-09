@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { CartContext } from "../components/CartContext";
 import { LoginContext } from "../components/LoginContext";
 import { Form } from "@heroui/form";
 import { Input } from "@heroui/input";

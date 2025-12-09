@@ -1,11 +1,8 @@
-import { useState, useContext, useEffect } from "react";
-import { CartContext } from "../components/CartContext";
 import womensHero from "../assets/womens.jpeg";
 import HeroSection from "../components/HeroSection";
 import CategoryGrid from "../components/CategoryGrid";
-const Womens = ({products}) => {
-    const { cart, setCart } = useContext(CartContext);
 
+const Womens = ({products}) => {
     return (
         <>
             <HeroSection title="Women's" image={womensHero} />

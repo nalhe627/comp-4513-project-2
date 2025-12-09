@@ -18,8 +18,12 @@ const AboutModal = ({ isOpen, onOpenChange }) => {
                     <>
                         <ModalHeader>About This Site</ModalHeader>
                         <ModalBody>
-                            <p className="mb-5">This e-commerce site was completed as a project for the second assignment in COMP 4513 at Mount Royal University.</p>
-                            <p className="mb-5">The project utilizes JavaScript, Node, React, Tailwind CSS, Vite, Recharts, and components courtesy of <Link showAnchorIcon href="https://www.heroui.com/" isExternal underline="always" color="foreground" className="font-medium">HeroUI.</Link></p>
+                            <p className="mb-5">
+                                This e-commerce site was completed as a project for the second assignment in COMP 4513 at Mount Royal University.
+                            </p>
+                            <p className="mb-5">
+                                The project utilizes JavaScript, Node, React, Tailwind CSS, Vite, Recharts, and components courtesy of <Link showAnchorIcon href="https://www.heroui.com/" isExternal underline="always" color="foreground" className="font-medium">HeroUI.</Link>
+                            </p>
                             <p className="mb-5">
                                 <span className="font-semibold">Group Member Names: </span>
                                 <span>Norris Alhejji, Justin Nunez</span>

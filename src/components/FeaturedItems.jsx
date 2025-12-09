@@ -1,9 +1,8 @@
-import { Card, CardBody, CardFooter } from "@heroui/card";
-import { Image } from "@heroui/image";
 const FeaturedItems = ({ products, change, image }) => {
     const handler = (product) => {
         change(product);
     };
+
     return (
         <div className="mt-12 mb-10 px-4 col-span-full">
             <h3 className="text-2xl font-bold text-gray-900 mb-8">Similar Items</h3>
