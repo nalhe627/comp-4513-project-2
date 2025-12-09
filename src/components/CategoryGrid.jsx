@@ -12,7 +12,6 @@ import loungewear from "../assets/loungewear.jpg";
 import shoes from "../assets/shoes.jpg";
 import intimates from "../assets/intimates.jpg";
 import swimwear from "../assets/swimwear.jpg";
-// import { Link } from "@heroui/link";
 import { Link } from "react-router-dom";
 
 const CategoryGrid = ({ data, gender }) => {
@@ -47,7 +46,7 @@ const CategoryGrid = ({ data, gender }) => {
                 return (
                     
                     <Link key={index} to={`/browse?gender=${gender}&category=${category}`}>
-                        <Card isPressable shadow="sm" fullWidth>
+                        <Card shadow="sm" fullWidth>
                                 <CardBody className="overflow-visible p-0">
                                     <Image
                                     removeWrapper

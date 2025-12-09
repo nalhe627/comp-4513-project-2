@@ -30,7 +30,7 @@ const Filter = ({ filters, filterArr, setFilterArr, selectedGender, setSelectedG
      */
     const changeCategories = (selectedCategories) => {
         const currFilters = { ...filters, categories: selectedCategories };
-
+        console.log(selectedCategories);
         const categoryArr = selectedCategories.map((category) => ({
             department: "categories", 
             value: category

@@ -10,16 +10,12 @@ const Browse = ({ products, changeProduct }) => {
 
     // Default sort is by name
     const [sortType, setSortType] = useState("name");
-
-    // Need to sort products by name first before rendering
-    const [filteredProducts, setFilteredProducts] = useState(
-        products.toSorted((a, b) => a.name < b.name ? -1 : 1)
-    );
-
-    // Not sure if filters should be an array or object (using object for now)
+    
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    
     const [filters, setFilters] = useState({ 
         gender: searchParams.get("gender"), 
-        categories: searchParams.get("category") || []
+        categories: searchParams.get("category") ? [searchParams.get("category")] : []
     });
     const [filterArr, setFilterArr] = useState([]);
 
@@ -135,6 +131,38 @@ const Browse = ({ products, changeProduct }) => {
         setFilteredProducts(sortProducts(filteredProducts, newSortType));
     };
 
+    // Initial render should filter the products (needed)
+    useEffect(() => {
+        let tempProducts = [...products];
+
+        if (filters.gender) {
+            tempProducts = tempProducts.filter((p) => p.gender === filters.gender);
+            console.log("filtered gender");
+        }
+
+        if (filters.categories?.length > 0) {
+            tempProducts = tempProducts.filter((p) => {
+                for (const category of filters.categories) {
+                    if (p.category.toLowerCase().includes(category.toLowerCase())) {
+                        return true;
+                    }
+                }
+            });
+            console.log("filtered categories");
+        }
+
+        // Assumming there's also category parameters if there's gender parameters
+        if (searchParams.get("gender")) {
+            setFilterArr([
+                { department: "gender", value: searchParams.get("gender") },
+                { department: "categories", value: searchParams.get("category") }
+            ])    
+        }
+
+        tempProducts = sortProducts(tempProducts, sortType);
+        setFilteredProducts(tempProducts);
+    }, []);
+    
     return (
         <section className="flex p-5 m-5 items-start flex-grow rounded-lg gap-4">
 
