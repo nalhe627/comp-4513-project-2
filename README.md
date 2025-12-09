@@ -1,6 +1,8 @@
-# Justin & Norris Store
+# NJ Store
 
 A modern e-commerce web application built with React, featuring product browsing, filtering, shopping cart functionality, and an admin dashboard for data visualization.
+
+This project was completed as part of the 2nd assignment for COMP 4513 at Mount Royal University.
 
 ##  Features
 
@@ -20,7 +22,6 @@ A modern e-commerce web application built with React, featuring product browsing
 - **Styling**: Tailwind CSS 4 + HeroUI Components
 - **Charts**: Recharts
 - **Icons**: Font Awesome
-- **Animations**: Framer Motion
 
 ##  Installation
 
@@ -80,33 +81,21 @@ src/
 └── main.jsx         # Application entry point
 ```
 
-## 🎨 Key Components
+## Main Views
 
 - **Home**: Landing page with hero section and featured products
 - **Browse**: Product catalog with advanced filtering options
-- **SingleProduct**: Detailed product view with size/color selection
-- **ShoppingCart**: Cart management with country and shipping options
+- **Single Product**: Detailed product view with size/color selection
+- **Shopping Cart**: Cart management with country and shipping options
 - **Dashboard**: Admin analytics with sales and profit visualization
-- **ProductCard**: Reusable product display component
-- **Navigation**: Dynamic navigation bar with cart badge
+- **Mens/Womens**: View that shows the different categories and navigates the user to the browser view with the selected gender and category
+- **Admin Login**: The page to login as an admin (note: authentication has not been implemented)
 
-## 🌐 Deployment
+## Deployment
 
-The project is configured for deployment to GitHub Pages with the base URL set in `vite.config.js`.
+The project was deployed using Github Pages. You can view the site here: https://nalhe627.github.io/comp-4513-project-2-production/
 
-For production deployment:
-```bash
-npm run build
-```
+## Group Members
 
-The built files will be in the `dist/` directory.
-
-## 👥 Authors
-
-- Justin
-- Norris
-
-
----
-
-Built with using React and Vite
+- Justin Nunez
+- Norris Alhejji
