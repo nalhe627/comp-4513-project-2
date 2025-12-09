@@ -18,9 +18,9 @@ const CartSummary = ({ cart, selectedCountry, selectedShipping }) => {
   if (selectedCountry && selectedShipping) {
     if (merchandiseTotal <= 500) {
       const rates = {
-        canada: { standard: 10, express: 25, priority: 35 },
-        "united states": { standard: 15, express: 25, priority: 35 },
-        international: { standard: 20, express: 30, priority: 50 },
+        Canada: { Standard: 10, Express: 25, Priority: 35 },
+        "United States": { Standard: 15, Express: 25, Priority: 35 },
+        International: { Standard: 20, Express: 30, Priority: 50 },
       };
 
       shippingCost = rates[selectedCountry][selectedShipping];

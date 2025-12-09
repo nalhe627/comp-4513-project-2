@@ -23,9 +23,9 @@ const CountryDrop = ({onChange}) => {
         selectedKeys={selectedKeys}
         onSelectionChange={handleSelect}
       >
-        <DropdownItem key="canada">Canada</DropdownItem>
-        <DropdownItem key="us">United States</DropdownItem>
-        <DropdownItem key="international">International</DropdownItem>
+        <DropdownItem key="Canada">Canada</DropdownItem>
+        <DropdownItem key="United States">United States</DropdownItem>
+        <DropdownItem key="International">International</DropdownItem>
       </DropdownMenu>
     </Dropdown>
   );

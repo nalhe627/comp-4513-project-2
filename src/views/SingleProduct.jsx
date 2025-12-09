@@ -1,9 +1,38 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../components/CartContext";
 import shirt from "../assets/shirt.jpg";
+import bottoms from "../assets/bottoms.jpg";
+import dresses from "../assets/dresses.jpg";
+import outerwear from "../assets/outerwear.jpg";
+import jumpsuits from "../assets/jumpsuits.jpg";
+import sweaters from "../assets/sweaters.jpg";
+import accessories from "../assets/accessories.jpg";
+import loungewear from "../assets/loungewear.jpg";
+import shoes from "../assets/shoes.jpg";
+import intimates from "../assets/intimates.jpg";
+import swimwear from "../assets/swimwear.jpg";
 import AdminDrawer from "../components/AdminDrawer";
-const SingleProduct = ({ product }) => {
+import FeaturedItems from "../components/FeaturedItems";
+const SingleProduct = ({ product, products, change }) => {
     const { addToCart } = useContext(CartContext);
+
+    const similarItems = products.map((p, i) => ({ ...p, originalIndex: i })).filter(p => p.category === product.category && p.id !== product.id).slice(0,4);
+    const matchCategory = () => {
+        const categoryImages = {
+            Tops: shirt,
+            Bottoms: bottoms,
+            Dresses: dresses,
+            Outerwear: outerwear,
+            Jumpsuits: jumpsuits,
+            Sweaters: sweaters,
+            Accessories: accessories,
+            Loungewear: loungewear,
+            Shoes: shoes,
+            Intimates: intimates,
+            Swimwear: swimwear,
+        }
+        return categoryImages[product.category];
+    }
 
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedColor, setSelectedColor] = useState(null);
@@ -26,15 +55,15 @@ const SingleProduct = ({ product }) => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto my-6 p-4 bg-white rounded-md shadow-sm">
             <div>
-                <div className="flex justify-center w-full h-96 bg-gray-200 rounded-lg flex items-center">
-                    <img src={shirt} />
+                <div className="flex justify-center w-full h-96 bg-gray-200 rounded-lg flex items-center overflow-hidden">
+                    <img src={matchCategory()} alt={product.category} />
                 </div>
                 <div className="grid grid-cols-2 gap-4 mt-4">
-                    <div className="h-32 bg-gray-200 rounded flex items-center justify-center">
-                        Small Image
+                    <div className="h-32 bg-gray-200 rounded flex items-center justify-center overflow-hidden">
+                        <img src={matchCategory()} alt={product.category} />
                     </div>
-                    <div className="h-32 bg-gray-200 rounded flex items-center justify-center">
-                        Small Image
+                    <div className="h-32 bg-gray-200 rounded flex items-center justify-center overflow-hidden">
+                        <img src={matchCategory()} alt={product.category} />
                     </div>
                 </div>
             </div>
@@ -72,11 +101,12 @@ const SingleProduct = ({ product }) => {
                 <div className="flex gap-2 mb-1">
                     <button onClick={editProduct} className="bg-blue-600 text-white px-6 py-2 rounded mb-3 w-full cursor-pointer">Add To Cart</button>
                 </div>
+                
                 <div className="flex gap-2 mb-6">
                     <AdminDrawer product={product} />
                 </div>
             </div>
-
+            <FeaturedItems products={similarItems} change={change} image={matchCategory}/>
         </div>
     );
 };
