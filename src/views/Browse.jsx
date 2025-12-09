@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Filter from "../components/Filter";
 import ProductResults from '../components/ProductResults';
 import { sortProducts } from "../utils/browse-page";
+import { useSearchParams } from "react-router";
 
-const Browse = ({ products, gender, categories, changeProduct }) => {
+const Browse = ({ products, changeProduct }) => {
+    const [searchParams] = useSearchParams();
+
     // Default sort is by name
     const [sortType, setSortType] = useState("name");
 
@@ -14,11 +17,14 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
     );
 
     // Not sure if filters should be an array or object (using object for now)
-    const [filters, setFilters] = useState({ gender, categories });
+    const [filters, setFilters] = useState({ 
+        gender: searchParams.get("gender"), 
+        categories: searchParams.get("category") 
+    });
     const [filterArr, setFilterArr] = useState([]);
 
     // Specfic state for gender in order to deselect the gender radio button
-    const [selectedGender, setSelectedGender] = useState(gender);
+    const [selectedGender, setSelectedGender] = useState(searchParams.get("gender"));
 
     /**
      * Filters the products everytime a specific filter (e.g., gender) is changed.
