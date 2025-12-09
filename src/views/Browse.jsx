@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { Chip } from "@heroui/chip";
-import { Select, SelectItem } from "@heroui/select";
 
-import ProductList from "../components/ProductList";
 import Filter from "../components/Filter";
+import ProductResults from '../components/ProductResults';
+import { sortProducts } from "../utils/browse-page";
 
 const Browse = ({ products, gender, categories, changeProduct }) => {
-    const [loading, setLoading] = useState(true);
-
     // Default sort is by name
     const [sortType, setSortType] = useState("name");
 
@@ -118,34 +115,7 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
         });
         setSelectedGender(null);
         setFilteredProducts(sortProducts(products, sortType));
-    }
-
-    /**
-     * Sorts the products based on the provided sortType.
-     * 
-     * Could be sorted by name, highest price, lowest price, or category.
-     * 
-     * @param {Object[]} currProducts the current products to sort
-     * @param {string} newSortType string representing how to sort the products
-     * @returns {Object[]} An array of products that have been sorted
-     */
-    const sortProducts = (currProducts, newSortType) => {
-        switch (newSortType) {
-            case "name":
-                // Products are sorted alphabetically (A-Z)
-                console.log("sorting by name");
-                return currProducts.toSorted((a, b) => a.name < b.name ? -1 : 1);
-            case "high price":
-                console.log("sorting by high");
-                return currProducts.toSorted((a, b) => b.price - a.price);
-            case "low price":
-                console.log("sorting by low");
-                return currProducts.toSorted((a, b) => a.price - b.price);
-            case "category":
-                console.log("sorting by category");
-                return currProducts.toSorted((a, b) => a.category < b.category ? -1 : 1);
-        }
-    }
+    };
     
     /**
      * Handles the logic for when the user changes the sort selection.
@@ -157,36 +127,6 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
 
         setSortType(newSortType);
         setFilteredProducts(sortProducts(filteredProducts, newSortType));
-    }
-
-    /**
-     * Formats the text used in the `Chip` component for each filter.
-     * 
-     * Only formats the text for filters related to gender or size.
-     * 
-     * @param {string} filterText the string to format
-     * @returns {string} A string that's been formatted appropriately
-     */
-    const formatFilterText = (filterText) => {
-        switch (filterText) {
-            case "XS":
-                return "Extra Small";
-            case "S":
-                return "Small";
-            case "M":
-                return "Medium";
-            case "L":
-                return "Large";
-            case "XL":
-                return "Extra Large";
-            case "mens":
-                return "Men";
-            case "womens":
-                return "Women";
-            // Don't format if not gender or size
-            default:
-                return filterText;
-        }
     };
 
     return (
@@ -204,49 +144,14 @@ const Browse = ({ products, gender, categories, changeProduct }) => {
             />
 
             {/* Product section */}
-            {/* TODO: put into separate component */}
-            <div className="basis-4/5 p-5 rounded-lg">
-                <div className="flex items-center justify-between">
-                    <div className="flex gap-8 items-center">
-                        <p className="font-bold text-xl">Results ({filteredProducts.length})</p>
-                    </div>
-                    <Select 
-                        className="max-w-3xs" 
-                        label="Sort By" 
-                        defaultSelectedKeys={["name"]} 
-                        disallowEmptySelection
-                        onChange={handleSortChange}
-                    >
-                        <SelectItem key="name">Product Name</SelectItem>
-                        <SelectItem key="high price">Highest Price</SelectItem>
-                        <SelectItem key="low price">Lowest Price</SelectItem>
-                        <SelectItem key="category">Category</SelectItem>
-                    </Select>
-                </div>
-                
-                {/* Chips of applied filters */}
-                <div className="flex flex-wrap gap-2 items-center pt-5">
-                    {filterArr.length > 0 && (
-                        <p 
-                            onClick={removeAllFilters} 
-                            className="underline px-2 cursor-pointer font-semibold underline-offset-3"
-                        >
-                            Clear All
-                        </p>
-                    )}
-                    {filterArr.map((filter, i) => (
-                        <Chip key={i} onClose={() => removeFilter(filter)}>
-                            {formatFilterText(filter.value)}
-                        </Chip>
-                    ))}
-                </div>
-                {filteredProducts.length === 0 && (
-                    <p className="text-center text-gray-500/80 text-3xl font-semibold my-10">
-                        No products found
-                    </p>
-                )}
-                <ProductList products={filteredProducts} changeProduct={changeProduct} />
-            </div>
+            <ProductResults 
+                filterArr={filterArr} 
+                handleSortChange={handleSortChange} 
+                filteredProducts={filteredProducts} 
+                removeFilter={removeFilter} 
+                removeAllFilters={removeAllFilters} 
+                changeProduct={changeProduct} 
+            />
         </section>
     );
 };
