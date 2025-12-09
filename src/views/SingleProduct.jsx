@@ -15,6 +15,8 @@ import swimwear from "../assets/swimwear.jpg";
 import AdminDrawer from "../components/AdminDrawer";
 import FeaturedItems from "../components/FeaturedItems";
 import { Breadcrumbs, BreadcrumbItem } from "@heroui/react";
+import { formatFilterText } from "../utils/browse-page";
+
 const SingleProduct = ({ product, products, change }) => {
     const { addToCart } = useContext(CartContext);
     const { loggedIn } = useContext(LoginContext);
@@ -66,7 +68,7 @@ const SingleProduct = ({ product, products, change }) => {
             <div className="mb-6">
                 <Breadcrumbs>
                     <BreadcrumbItem>Home</BreadcrumbItem>
-                    <BreadcrumbItem>Gender</BreadcrumbItem>
+                    <BreadcrumbItem>{formatFilterText(product.gender)}</BreadcrumbItem>
                     <BreadcrumbItem>{product.category}</BreadcrumbItem>
                     <BreadcrumbItem>{product.name}</BreadcrumbItem>
                 </Breadcrumbs>
