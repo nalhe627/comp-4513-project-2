@@ -40,7 +40,7 @@ const CategoryGrid = ({ data, gender }) => {
     }, [data, gender]);
 
     return (
-        <div className="gap-2 grid grid-cols-4 sm:grid-cols-4 grid-rows-3 m-12">
+        <div className="gap-2 grid grid-cols-4 sm:grid-cols-4 m-12 gap-10">
             {categories.map((category, index) => {
                 const imgSrc = categoryImages[category];
                 return (
