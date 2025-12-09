@@ -17,6 +17,8 @@ import { Breadcrumbs, BreadcrumbItem } from "@heroui/react";
 const SingleProduct = ({ product, products, change }) => {
     const { addToCart } = useContext(CartContext);
 
+    if (!product) return null;
+
     const similarItems = products.map((p, i) => ({ ...p, originalIndex: i })).filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
     const matchCategory = () => {
         const categoryImages = {

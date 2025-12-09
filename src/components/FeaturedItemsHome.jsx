@@ -11,8 +11,8 @@ import intimates from "../assets/intimates.jpg";
 import swimwear from "../assets/swimwear.jpg";
 
 const FeaturedItemsHome = ({ products, change }) => {
-    const handler = (ind) => {
-        change(ind);
+    const handler = (product) => {
+        change(product);
     };
     const categoryImages = {
         Tops: shirt,
@@ -38,7 +38,7 @@ const FeaturedItemsHome = ({ products, change }) => {
                         return (
                             <div 
                                 key={index}
-                                onClick={() => handler(product.originalIndex)}
+                                onClick={() => handler(product)}
                                 className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer overflow-hidden border border-gray-200 m-4 inline-block w-60"
                             >
                                 <div className="w-full h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
