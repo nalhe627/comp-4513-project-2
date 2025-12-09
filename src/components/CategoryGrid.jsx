@@ -32,9 +32,11 @@ const CategoryGrid = ({ data, gender }) => {
 
 
     useEffect(() => {
-        const filtergender = data.filter((item) => item.gender === gender);
-        const uniqueCategories = [...new Set(filtergender.map(item => item.category))];
-        setCategories(uniqueCategories);
+        if (Array.isArray(data)) {
+            const filtergender = data.filter((g) => g.gender === gender);
+            const uniqueCategories = [...new Set(filtergender.map(c => c.category))];
+            setCategories(uniqueCategories);
+        }
     }, [data, gender]);
 
     return (

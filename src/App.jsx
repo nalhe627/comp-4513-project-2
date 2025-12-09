@@ -6,6 +6,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ShoppingCart from "./views/ShoppingCart";
 import Home from "./views/Home";
+import Mens from "./views/Mens";
+import Womens from "./views/Womens";
 // import "./App.css";
 import ProductFilters from "./components/ProductFilters";
 import HeroSection from "./components/HeroSection";
@@ -26,9 +28,6 @@ const App = (props) => {
   const changeProduct = (index) => {
     setSelectedProduct(index);
   }
-  const getIndex = () => {
-    return selectedProduct;
-  }
 
   useEffect(() => {
     fetch("https://gist.githubusercontent.com/rconnolly/d37a491b50203d66d043c26f33dbd798/raw/37b5b68c527ddbe824eaed12073d266d5455432a/clothing-compact.json")
@@ -43,8 +42,8 @@ const App = (props) => {
         <main className="flex flex-col justify-between min-h-screen">
           <Header />
           {/* <HeroSection title="Welcome to Justin & Norris Store" image={mensHero} /> */}
-          <CategoryGrid data={products} gender={"mens"}/>
-          <ProductList products={products} change={changeProduct} />
+          {/* <CategoryGrid data={products} gender={"womens"}/> */}
+          {/* <ProductList products={products} change={changeProduct} /> */}
           {selectedProduct !== null && (
             <SingleProduct product={products[selectedProduct]} products={products} change={changeProduct} />
             
@@ -53,8 +52,10 @@ const App = (props) => {
           <Footer />
         </main>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home products={products} change={changeProduct}/>} />
           <Route path="/cart" element={<ShoppingCart />} />
+          <Route path="/men" element={<Mens products={products}/>} />
+          <Route path="/women" element={<Womens products={products}/>} />
         </Routes>
       </CartContextProvider>
     </HeroUIProvider>
