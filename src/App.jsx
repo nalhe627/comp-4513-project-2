@@ -17,9 +17,7 @@ import Womens from "./views/Womens";
 
 const App = () => {
   const navigate = useNavigate()
-  const [filter, setFilter] = useState();
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const specifyFilter = (f) => { setFilter(f) };
   const [products, setProducts] = useState([]);
 
   const changeProduct = (product) => {
@@ -33,6 +31,7 @@ const App = () => {
         const editedData = data.map((p) => {
           const temp = { 
             ...p,
+            // Calculate the sales beforehand to make our lives easier
             domesticGross: p.sales.domestic * p.price,
             internationalGross: p.sales.international * p.price,
             totalGross: p.sales.total * p.price,
