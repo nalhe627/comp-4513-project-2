@@ -9,8 +9,7 @@ import { Tooltip } from "@heroui/tooltip";
 
 const Login = () => {
     const navigate = useNavigate();
-    const { cart, setCart } = useContext(CartContext);
-    const { loggedIn, setLoggedIn } = useContext(LoginContext);
+    const { setLoggedIn } = useContext(LoginContext);
 
     /**
      * Attempts to sign the user in.

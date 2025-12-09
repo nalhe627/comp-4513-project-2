@@ -12,6 +12,7 @@ import loungewear from "../assets/loungewear.jpg";
 import shoes from "../assets/shoes.jpg";
 import intimates from "../assets/intimates.jpg";
 import swimwear from "../assets/swimwear.jpg";
+import { Link } from "@heroui/link";
 
 const CategoryGrid = ({ data, gender }) => {
     const [categories, setCategories] = useState([]);
@@ -30,7 +31,6 @@ const CategoryGrid = ({ data, gender }) => {
         Swimwear: swimwear,
     }
 
-
     useEffect(() => {
         if (Array.isArray(data)) {
             const filtergender = data.filter((g) => g.gender === gender);
@@ -44,21 +44,21 @@ const CategoryGrid = ({ data, gender }) => {
             {categories.map((category, index) => {
                 const imgSrc = categoryImages[category];
                 return (
-                <Card key={index} isPressable shadow="sm">
-                    <CardBody className="overflow-visible p-0">
-                        <Image
-                        removeWrapper
-                        alt="Card background"
-                        className="w-full object-cover h-[140px]"
-                        src={imgSrc}
-                    />
-                    </CardBody>
-                    <CardFooter className="text-small justify-between">
-
-                        <p className="text-black font-medium text-large" key={category}>{category}</p>
-
-                    </CardFooter>             
-                </Card>
+                    <Link key={index} href={`/browse?gender=${gender}&category=${category}`}>
+                    <Card isPressable shadow="sm">
+                            <CardBody className="overflow-visible p-0">
+                                <Image
+                                removeWrapper
+                                alt="Card background"
+                                className="w-full object-cover h-[140px]"
+                                src={imgSrc}
+                            />
+                            </CardBody>
+                            <CardFooter className="text-small justify-between">
+                                <p className="text-black font-medium text-large" key={category}>{category}</p>
+                            </CardFooter>
+                    </Card>
+                    </Link>
                 );
         })}
         </div>
