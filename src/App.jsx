@@ -30,9 +30,6 @@ const App = () => {
     // setSelectedProduct(index);
     setSelectedProduct(product);
   }
-  const getIndex = () => {
-    return selectedProduct;
-  }
 
   useEffect(() => {
     fetch("https://gist.githubusercontent.com/rconnolly/d37a491b50203d66d043c26f33dbd798/raw/37b5b68c527ddbe824eaed12073d266d5455432a/clothing-compact.json")
