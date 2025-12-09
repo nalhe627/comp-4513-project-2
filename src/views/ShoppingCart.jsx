@@ -112,10 +112,8 @@ const ShoppingCart = () => {
                 {/* Right: Summary */}
                 <div className="w-full md:w-80">
                     <CartSummary 
-                        cart={cart} 
                         selectedCountry={selectedCountry} 
                         selectedShipping={selectedShipping}
-                        clearCart={clearCart}
                     />
                 </div>
 

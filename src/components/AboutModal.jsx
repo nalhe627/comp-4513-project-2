@@ -32,11 +32,14 @@ const AboutModal = ({ isOpen, onOpenChange }) => {
                                 href="https://github.com/nalhe627/comp-4513-project-2" 
                                 isExternal underline="always" 
                                 color="foreground" 
-                                className="font-medium"
+                                className="font-medium mb-5"
                             >
                                 <FontAwesomeIcon icon={faGithub} size="lg" />
                                 Github Repository
                             </Link>
+                            <p className="font-light text-xs">
+                                Icons from <Link showAnchorIcon href="https://fontawesome.com/" isExternal underline="always" color="foreground" className="font-medium text-xs">Font Awesome</Link>
+                            </p>
                         </ModalBody>
                         <ModalFooter>
                             <Button 

@@ -1,8 +1,10 @@
-import React from "react";
+import { useContext, useState } from "react";
+import { CartContext } from "../components/CartContext";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@heroui/react";
 
 const ShippingDrop = ({ onChange }) => {
-  const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
+  const { cart } = useContext(CartContext);
+  const [selectedKeys, setSelectedKeys] = useState(new Set([]));
 
   const handleSelect = (keys) => {
     setSelectedKeys(keys);
@@ -13,7 +15,7 @@ const ShippingDrop = ({ onChange }) => {
   };
 
   return (
-    <Dropdown>
+    <Dropdown isDisabled={cart.length === 0}>
       <DropdownTrigger>
         <Button variant="bordered">
           {Array.from(selectedKeys)[0] || "Select Shipping"}

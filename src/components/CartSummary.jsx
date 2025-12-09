@@ -1,16 +1,15 @@
+import { useContext } from "react";
+import { CartContext } from "../components/CartContext";
 import { addToast } from "@heroui/toast";
+import { Button } from "@heroui/button";
 
-const CartSummary = ({ cart, selectedCountry, selectedShipping, clearCart }) => {
+const CartSummary = ({ selectedCountry, selectedShipping }) => {
+  const { cart, clearCart } = useContext(CartContext);
   
   const merchandiseTotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-
-  let tax = 0;
-  if (selectedCountry === "canada") {
-    tax = merchandiseTotal * 0.05;
-  }
   
   let shippingCost = 0;
 
@@ -18,15 +17,21 @@ const CartSummary = ({ cart, selectedCountry, selectedShipping, clearCart }) => 
     if (merchandiseTotal <= 500) {
       const rates = {
         Canada: { Standard: 10, Express: 25, Priority: 35 },
-        "United States": { Standard: 15, Express: 25, Priority: 35 },
+        "United States": { Standard: 15, Express: 25, Priority: 50 },
         International: { Standard: 20, Express: 30, Priority: 50 },
       };
 
       shippingCost = rates[selectedCountry][selectedShipping];
     }
   }
-  
-  const total = merchandiseTotal + tax + shippingCost;
+
+  let total = merchandiseTotal + shippingCost;
+
+  let tax = 0;
+  if (selectedCountry === "Canada") {
+    tax = total * 0.05;
+    total += tax;
+  }
 
   /**
    * Handles when the user clicks the checkout button.
@@ -65,12 +70,15 @@ const CartSummary = ({ cart, selectedCountry, selectedShipping, clearCart }) => 
         <span>${total.toFixed(2)}</span>
       </div>
 
-      <button 
-        className="bg-blue-600 text-white w-full mt-4 py-2 rounded cursor-pointer" 
-        onClick={handleCheckout}
+      <Button 
+        onPress={handleCheckout}
+        className="mt-5"
+        color="primary"
+        fullWidth
+        isDisabled={cart.length === 0}
       >
         Checkout
-      </button>
+      </Button>
     </div>
   );
 };
