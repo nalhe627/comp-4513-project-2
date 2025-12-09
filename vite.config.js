@@ -5,5 +5,6 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig(({ command }) => ({
   plugins: [react(), tailwindcss()],
-  base: command === 'build' ? '/comp-4513-project-2-production/' : '/'
+  // base: command '/comp-4513-project-2-production/' : '/'
+  base: '/comp-4513-project-2-production'
 }))

@@ -67,12 +67,6 @@ const App = () => {
         <CartContextProvider>
           <main className="flex flex-col justify-between min-h-screen">
             <Header />
-            {/* <HeroSection title="Welcome to Justin & Norris Store" image={mensHero} /> */}
-            {/* <CategoryGrid data={products} /> */}
-            {/* <ProductList products={products} change={changeProduct} /> */}
-            {/* {selectedProduct !== null && (
-              <SingleProduct product={products[selectedProduct]} />
-            )} */}
               <Routes>
                 <Route path="/" element={<Home products={products} change={changeProduct}/>} />
                 <Route path="/browse" element={<Browse products={products} changeProduct={changeProduct} />} />
@@ -83,7 +77,6 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/cart" element={<ShoppingCart />} />
               </Routes>
-            {/* <ShoppingCart /> */}
             <Footer />
           </main>
         </CartContextProvider>

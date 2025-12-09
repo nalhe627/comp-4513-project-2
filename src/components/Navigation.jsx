@@ -34,7 +34,15 @@ const Navigation = () => {
     return (
         <Navbar isBordered maxWidth="full">
             <NavbarContent justify="start">
-                <NavbarBrand className="">Shop</NavbarBrand>
+                <NavbarBrand>
+                    <Link
+                        href="/"
+                        onPress={() => setCurrPage("/")}
+                        className="py-2 px-4 text-xl"
+                    >
+                        NJ Shop
+                    </Link>
+                </NavbarBrand>
             </NavbarContent>
             <NavbarContent justify="center">
                 <NavbarItem isActive={currPage === "/"}>
