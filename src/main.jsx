@@ -6,7 +6,7 @@ import App from "./App";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/comp-4513-project-2-production">
       <App />
     </BrowserRouter>
   </StrictMode>,
