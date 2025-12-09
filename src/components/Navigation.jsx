@@ -2,13 +2,16 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { Link } from "@heroui/link";
 import { Button } from "@heroui/button";
 import { Badge } from "@heroui/badge";
+import { useDisclosure } from "@heroui/modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
 import { LoginContext } from "./LoginContext";
+import AboutModal from "./AboutModal";
 
 const Navigation = () => {
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const { cart } = useContext(CartContext);
     const { loggedIn, setLoggedIn } = useContext(LoginContext);
     const [currPage, setCurrPage] = useState("");
@@ -75,7 +78,16 @@ const Navigation = () => {
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link isBlock href="/about">About</Link>
+                    <Button 
+                    size="sm" 
+                    className="rounded-xl text-md" 
+                    color="primary" 
+                    variant="light"
+                    onPress={onOpen}
+                >
+                    About
+                </Button>
+                <AboutModal isOpen={isOpen} onOpenChange={onOpenChange} />
                 </NavbarItem>
                 {loggedIn && (
                     <NavbarItem isActive={currPage === "/dashboard"}>
