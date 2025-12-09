@@ -73,6 +73,7 @@ const ShoppingCart = () => {
                     <div className="flex flex-col md:flex-row gap-4">
                         <ShippingDrop onChange={setSelectedShipping} />
                         <CountryDrop onChange={setSelectedCountry} />
+                        <button onClick={clearCart}className="bg-red-400 text-white w-full py-2 rounded cursor-pointer">Clear Cart</button>
                     </div>
                 </div>
 
