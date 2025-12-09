@@ -1,16 +1,112 @@
-# React + Vite
+# Justin & Norris Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern e-commerce web application built with React, featuring product browsing, filtering, shopping cart functionality, and an admin dashboard for data visualization.
 
-Currently, two official plugins are available:
+##  Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Product Catalog**: Browse through a diverse collection of clothing items across multiple categories
+- **Advanced Filtering**: Filter products by gender, category, size, and color
+- **Shopping Cart**: Add items to cart with size and color selection, manage quantities
+- **Product Details**: View detailed information about individual products with similar item recommendations
+- **Responsive Design**: Fully responsive UI built with Tailwind CSS and HeroUI components
+- **Admin Dashboard**: Visualize sales data, profits, and product analytics with interactive charts
+- **Featured Products**: Highlight top-selling items on the home page
 
-## React Compiler
+##  Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend Framework**: React 19
+- **Build Tool**: Vite
+- **Routing**: React Router DOM
+- **Styling**: Tailwind CSS 4 + HeroUI Components
+- **Charts**: Recharts
+- **Icons**: Font Awesome
+- **Animations**: Framer Motion
 
-## Expanding the ESLint configuration
+##  Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clone the repository:
+```bash
+git clone https://github.com/nalhe627/comp-4513-project-2.git
+cd comp-4513-project-2
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+4. Open your browser and navigate to `http://localhost:5173`
+
+##  Build
+
+To create a production build:
+
+```bash
+npm run build
+```
+
+To preview the production build:
+
+```bash
+npm run preview
+```
+
+##  Project Structure
+
+```
+src/
+├── assets/          # Images and static assets
+├── components/      # Reusable React components
+│   ├── CartContext.jsx
+│   ├── LoginContext.jsx
+│   ├── Navigation.jsx
+│   ├── ProductCard.jsx
+│   ├── ProductList.jsx
+│   └── ...
+├── constants/       # App constants and filters
+├── views/           # Page components
+│   ├── Home.jsx
+│   ├── Browse.jsx
+│   ├── SingleProduct.jsx
+│   ├── ShoppingCart.jsx
+│   ├── Dashboard.jsx
+│   └── ...
+├── App.jsx          # Main application component
+└── main.jsx         # Application entry point
+```
+
+## 🎨 Key Components
+
+- **Home**: Landing page with hero section and featured products
+- **Browse**: Product catalog with advanced filtering options
+- **SingleProduct**: Detailed product view with size/color selection
+- **ShoppingCart**: Cart management with country and shipping options
+- **Dashboard**: Admin analytics with sales and profit visualization
+- **ProductCard**: Reusable product display component
+- **Navigation**: Dynamic navigation bar with cart badge
+
+## 🌐 Deployment
+
+The project is configured for deployment to GitHub Pages with the base URL set in `vite.config.js`.
+
+For production deployment:
+```bash
+npm run build
+```
+
+The built files will be in the `dist/` directory.
+
+## 👥 Authors
+
+- Justin
+- Norris
+
+
+---
+
+Built with using React and Vite
