@@ -31,12 +31,18 @@ const FeaturedItemsHome = ({ products, change }) => {
         Intimates: intimates,
         Swimwear: swimwear,
     }
-    const featured = products.map((p, i) => ({ ...p, originalIndex: i })).filter(p => p["sales"]["total"] >= 500).slice(0, 4);
+
+    // Choose only 4 products for the featured items
+    const featured = products.map((p, i) => ({ ...p, originalIndex: i }))
+        .filter(p => p["sales"]["total"] >= 500)
+        .slice(0, 4);
 
     return (
         <section className="relative w-full">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-6">
-                <div>
+                <p className="text-center font-bold text-3xl">Feautred Products</p>
+                <p className="text-center font-light my-1">Customers Love These Items</p>
+                <div className="flex justify-center">
                     {featured.map((product, index) => {
                         const imgSrc = categoryImages[product.category]
                         return (
