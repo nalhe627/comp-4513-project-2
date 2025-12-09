@@ -6,6 +6,7 @@ import { Form } from "@heroui/form";
 import { Input } from "@heroui/input";
 import { Button } from "@heroui/button";
 import { Tooltip } from "@heroui/tooltip";
+import { addToast } from "@heroui/toast";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -20,7 +21,12 @@ const Login = () => {
      */
     const signIn = (e) => {
         e.preventDefault();
+        
         setLoggedIn(true);
+        addToast({
+            title: "Successfully Logged In",
+            color: "success"
+        })
         console.log("loggin in");
         navigate("/");
     };

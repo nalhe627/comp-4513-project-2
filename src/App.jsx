@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate, useHref } from "react-router-dom";
 import { HeroUIProvider } from "@heroui/system";
 import { CartContextProvider } from "./components/CartContext";
 import { LoginContextProvider } from "./components/LoginContext";
+import { ToastProvider } from "@heroui/toast";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ShoppingCart from "./views/ShoppingCart";
@@ -61,6 +62,7 @@ const App = () => {
   
   return (
     <HeroUIProvider navigate={navigate} useHref={useHref}>
+      <ToastProvider />
       <LoginContextProvider>
         <CartContextProvider>
           <main className="flex flex-col justify-between min-h-screen">

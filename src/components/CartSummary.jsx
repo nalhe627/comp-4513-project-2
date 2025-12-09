@@ -1,3 +1,4 @@
+import { addToast } from "@heroui/toast";
 
 const CartSummary = ({ cart, selectedCountry, selectedShipping, clearCart }) => {
   
@@ -6,12 +7,10 @@ const CartSummary = ({ cart, selectedCountry, selectedShipping, clearCart }) => 
     0
   );
 
-  
   let tax = 0;
   if (selectedCountry === "canada") {
     tax = merchandiseTotal * 0.05;
   }
-
   
   let shippingCost = 0;
 
@@ -26,9 +25,19 @@ const CartSummary = ({ cart, selectedCountry, selectedShipping, clearCart }) => 
       shippingCost = rates[selectedCountry][selectedShipping];
     }
   }
-
   
   const total = merchandiseTotal + tax + shippingCost;
+
+  /**
+   * Handles when the user clicks the checkout button.
+   */
+  const handleCheckout = () => {
+    addToast({
+      title: "Successfully Checked Out",
+      color: "success",
+    })
+    clearCart();
+  }
 
   return (
     <div className="border p-4 w-64 rounded-md shadow-md mt-4 bg-white">
@@ -56,7 +65,7 @@ const CartSummary = ({ cart, selectedCountry, selectedShipping, clearCart }) => 
         <span>${total.toFixed(2)}</span>
       </div>
 
-      <button className="bg-blue-600 text-white w-full mt-4 py-2 rounded cursor-pointer" onClick={clearCart}>
+      <button className="bg-blue-600 text-white w-full mt-4 py-2 rounded cursor-pointer" onClick={handleCheckout}>
         Checkout
       </button>
     </div>

@@ -47,7 +47,7 @@ const SingleProduct = ({ product, products, change }) => {
             alert("Please select a color and size.");
             return;
         }
-        
+
         addToCart({
             ...product,
             selectedSize,

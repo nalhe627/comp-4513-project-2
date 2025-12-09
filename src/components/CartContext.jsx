@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { addToast } from "@heroui/toast";
 
 export const CartContext = createContext();
 
@@ -35,6 +36,10 @@ export const CartContextProvider = ({ children }) => {
     
     localStorage.setItem("cart", JSON.stringify(newCart));
     setCart(newCart);
+    addToast({
+      title: "Added Product to Cart",
+      color: "success"
+    })
   };
 
   const removeFromCart = (productId) => {
