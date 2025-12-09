@@ -39,7 +39,7 @@ const AdminDrawer = ({ product }) => {
 
   return (
     <>
-      <Button onPress={onOpen}>Admin</Button>
+      <Button onPress={onOpen} color="warning">View Sales Data</Button>
       <Drawer isOpen={isOpen} onOpenChange={onOpenChange}>
         <DrawerContent>
           {(onClose) => (

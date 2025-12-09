@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../components/CartContext";
+import { LoginContext } from "../components/LoginContext";
 import shirt from "../assets/shirt.jpg";
 import bottoms from "../assets/bottoms.jpg";
 import dresses from "../assets/dresses.jpg";
@@ -16,10 +17,18 @@ import FeaturedItems from "../components/FeaturedItems";
 import { Breadcrumbs, BreadcrumbItem } from "@heroui/react";
 const SingleProduct = ({ product, products, change }) => {
     const { addToCart } = useContext(CartContext);
+    const { loggedIn } = useContext(LoginContext);
+
+    const [selectedSize, setSelectedSize] = useState(null);
+    const [selectedColor, setSelectedColor] = useState(null);
+    const [quantity, setQuantity] = useState(1);
 
     if (!product) return null;
 
-    const similarItems = products.map((p, i) => ({ ...p, originalIndex: i })).filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
+    const similarItems = products.map((p, i) => ({ ...p, originalIndex: i }))
+        .filter(p => p.category === product.category && p.id !== product.id)
+        .slice(0, 4);
+
     const matchCategory = () => {
         const categoryImages = {
             Tops: shirt,
@@ -36,10 +45,6 @@ const SingleProduct = ({ product, products, change }) => {
         }
         return categoryImages[product.category];
     }
-
-    const [selectedSize, setSelectedSize] = useState(null);
-    const [selectedColor, setSelectedColor] = useState(null);
-    const [quantity, setQuantity] = useState(1);
 
     if (!product) return null;
     const editProduct = () => {
@@ -118,7 +123,7 @@ const SingleProduct = ({ product, products, change }) => {
                     </div>
 
                     <div className="flex gap-2 mb-6">
-                        <AdminDrawer product={product} />
+                        {loggedIn && <AdminDrawer product={product} />}
                     </div>
                 </div>
             </div>
